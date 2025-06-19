@@ -19,7 +19,25 @@
         for (let i = 0; i < n; i++) {
             a[i] = parseInt(prompt("Enter element " + (i + 1) + ":"));
         }
+        let min
+        for (let i = 0; i < n; i++) {
+            min = i
+            for (let j = i+1; j < n; j++) {
+                if (a[j] < a[min]) {
+                    min = j
+                }
+                if (min != i) {
+                    let temp=a[i]
+                    a[i]=a[min]
+                    a[min]=a[i]
+                }
 
+            }
+
+        }
+        for (let i = 0; i < n; i++) {
+            document.write(a[i]+" ");
+        }
 
     </script>
 </body>
