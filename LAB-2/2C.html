@@ -1,0 +1,82 @@
+<!--WAP to display given patterns using JavaScript.-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Square Star Pattern</title>
+</head>
+<body>
+    <script>
+        let n = parseInt(prompt("Enter the number of rows (N):"));
+
+        if (isNaN(n) || n <= 0) {
+            document.write("Please enter a valid positive number.");
+        } else {
+            document.write("Square Star Pattern:<br>");
+            for (let i = 0; i < n; i++) {
+                for (let j = 0; j < n; j++) {
+                    document.write("*");
+                }
+                document.write("<br>");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Inverted Hash Pattern</title>
+</head>
+<body>
+    <script>
+        let a = parseInt(prompt("Enter the number of rows (A):"));
+
+        if (isNaN(a) || a <= 0) {
+            document.write("Please enter a valid positive number.");
+        } else {
+            document.write("Inverted Hash Triangle:<br>");
+            for (let i = 0; i < a; i++) {
+                for (let j = a - i; j > 0; j--) {
+                    document.write("#");
+                }
+                document.write("<br>");
+            }
+        }
+    </script>
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Number Triangle</title>
+</head>
+<body>
+    <script>
+        let b = parseInt(prompt("Enter the number of rows (B):"));
+        let k = 1;
+
+        if (isNaN(b) || b <= 0) {
+            document.write("Please enter a valid positive number.");
+        } else {
+            document.write("Incremental Number Triangle:<br>");
+            for (let i = 0; i < b; i++) {
+                for (let j = 0; j <= i; j++) {
+                    document.write(k++);
+                }
+                document.write("<br>");
+            }
+        }
+    </script>
+</body>
+</html>
+

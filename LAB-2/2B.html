@@ -1,0 +1,40 @@
+<!--WAP in JavaScript to prime number between the given range of number.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Prime Numbers in a Range</title>
+</head>
+<body>
+    <script>
+        // Ask the user to input the range
+        let a = parseInt(prompt("Enter the lower number (A):"));
+        let b = parseInt(prompt("Enter the upper number (B):"));
+
+        // Validate input
+        if (isNaN(a) || isNaN(b)) {
+            document.write("Invalid input: Please enter numeric values.");
+        } else if (a > b) {
+            document.write("Invalid range: A should be less than or equal to B.");
+        } else {
+            document.write("Prime numbers between " + a + " and " + b + " are:<br>");
+
+            for (let j = a; j <= b; j++) {
+                let temp = 0; // Counter for number of divisors
+
+                for (let i = 1; i <= j; i++) {
+                    if (j % i === 0) {
+                        temp++; // Increase count if divisible
+                    }
+                }
+
+                // A prime number has exactly two divisors: 1 and itself
+                if (temp === 2) {
+                    document.writeln(j + " ");
+                }
+            }
+        }
+    </script>
+</body>
+</html>
