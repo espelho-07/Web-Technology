@@ -1,0 +1,44 @@
+<!-- WAP in JavaScript to check whether the given number is prime or not -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Prime Number Checker</title>
+</head>
+
+<body>
+    <script>
+        // Asking user to input a number to check for prime status
+        let number = parseInt(prompt("Enter a number you want to check whether it's prime or not:"));
+
+        // Separate validation for invalid input
+        if (isNaN(number)) {
+            document.write("Invalid input: Please enter a valid number.");
+        }
+        // Separate condition for numbers less than 2
+        else if (number < 2) {
+            document.write("Numbers less than 2 are not considered prime.");
+        }
+        // Prime check starts here
+        else {
+            let temp = 0;
+
+            for (let i = 2; i < number; i++) {
+                if (number % i === 0) {
+                    temp = 1; // Found a divisor, so not prime
+                    break;
+                }
+            }
+
+            if (temp === 0) {
+                document.write("The number you entered is a prime number.");
+            } else {
+                document.write("The number you entered is not a prime number.");
+            }
+        }
+    </script>
+</body>
+
+</html>

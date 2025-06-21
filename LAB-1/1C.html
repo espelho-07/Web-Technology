@@ -1,0 +1,38 @@
+<!--WAP in JavaScript to ƒnd the factorial of given number.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Factorial Calculator</title>
+</head>
+
+<body>
+    <script>
+        // Asking the user to enter a number
+        let num = parseInt(prompt("Enter a number to find its factorial:"));
+
+        // Check for invalid input
+        if (isNaN(num)) {
+            document.write("Invalid input: Please enter a valid number.");
+        }
+        // Check for negative input
+        else if (num < 0) {
+            document.write("Factorial is not defined for negative numbers.");
+        }
+        else {
+            let factorial = 1; // Initialize factorial as 1
+
+            // Loop to calculate factorial
+            for (let i = 1; i <= num; i++) {
+                factorial = factorial * i; // Multiply current factorial value with i
+            }
+
+            // Display the result
+            document.write("The factorial of " + num + " is " + factorial + ".");
+        }
+    </script>
+</body>
+
+</html>

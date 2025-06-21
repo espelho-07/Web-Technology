@@ -1,0 +1,45 @@
+<!--WAP in JavaScript to check whether the given number is palindrome or not.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Palindrome Number</title>
+</head>
+
+<body>
+    <script>
+        // Asking the user to enter a number
+        let num = parseInt(prompt("Enter a number to check if it's a palindrome:"));
+
+        // Check for invalid input
+        if (isNaN(num)) {
+            document.write("Invalid input: Please enter a valid number.");
+        }
+        // Check for negative input (optional, depending on your logic)
+        else if (num < 0) {
+            document.write("Please enter a non-negative number.");
+        }
+        else {
+            let original = num; // Store the original number
+            let reverse = 0;
+
+            // Loop to reverse the number
+            while (num > 0) {
+                let digit = num % 10; // Get the last digit
+                reverse = reverse * 10 + digit; // Build the reversed number
+                num = Math.floor(num / 10); // Remove the last digit
+            }
+
+            // Check if original and reversed numbers are equal
+            if (original === reverse) {
+                document.write("The number " + original + " is a palindrome.");
+            } else {
+                document.write("The number " + original + " is not a palindrome.");
+            }
+        }
+    </script>
+</body>
+
+</html>

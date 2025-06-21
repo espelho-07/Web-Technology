@@ -1,0 +1,53 @@
+<!--WAP in JavaScript to make simple calculator using popup box.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+</head>
+
+<body>
+    <script>
+
+        // Asking The Values And The Operation To Perform From User
+        let a = parseInt(prompt("Enter The Number A:"));                     // parseInt converts input string into integer
+        let b = parseInt(prompt("Enter The Number B:"));                    // prompt displays a dialogue box to get input
+        let c = prompt("Enter Operation You Want To Do (+, -, *, /):");    // let is used to declare variables
+
+        // Validating if the inputs are proper numbers
+        if (isNaN(a) || isNaN(b)) {
+            alert("Invalid input: Please enter valid numbers.");      // Alert if input is not a number
+        } else {
+            // Addition
+            if (c == '+') {
+                alert("The Addition Of The Given Numbers Is = " + (a + b));
+            }
+            // Subtraction
+            else if (c == '-') {
+                alert("The Subtraction Of The Given Numbers Is = " + (a - b));
+            }
+            // Multiplication
+            else if (c == '*') {
+                alert("The Multiplication Of The Given Numbers Is = " + (a * b));
+            }
+            // Division
+            else if (c == '/') {
+                // Checking for division by zero
+                if (b == 0) {
+                    alert("Cannot divide by zero.");               // Handling divide-by-zero edge case
+                } else {
+                    alert("The Division Of The Given Numbers Is = " + (a / b));
+                }
+            }
+            // If user enters any other symbol
+            else {
+                alert("Invalid operation entered. Please enter one of: +, -, *, /");
+            }
+        }
+    </script>
+</body>
+
+</html>
