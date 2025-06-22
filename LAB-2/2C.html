@@ -3,10 +3,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Square Star Pattern</title>
 </head>
+
 <body>
     <script>
         let n = parseInt(prompt("Enter the number of rows (N):"));
@@ -24,21 +26,28 @@
         }
     </script>
 </body>
+
 </html>
 
-
+<br>
+<br>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Inverted Hash Pattern</title>
 </head>
+
 <body>
     <script>
         let a = parseInt(prompt("Enter the number of rows (A):"));
 
-        if (isNaN(a) || a <= 0) {
+        if (isNaN(a)) {
+            document.write("Please enter a valid number.");
+        }
+        else if (a <= 0) {
             document.write("Please enter a valid positive number.");
         } else {
             document.write("Inverted Hash Triangle:<br>");
@@ -51,15 +60,20 @@
         }
     </script>
 </body>
+
 </html>
 
+<br>
+<br>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Number Triangle</title>
 </head>
+
 <body>
     <script>
         let b = parseInt(prompt("Enter the number of rows (B):"));
@@ -78,5 +92,5 @@
         }
     </script>
 </body>
-</html>
 
+</html>

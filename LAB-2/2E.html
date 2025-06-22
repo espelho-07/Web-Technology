@@ -1,0 +1,37 @@
+<!--Write a JavaScript to take 2-digit number and then separate these 2 digits, then multiply 
+ƒrst digit by itself for second digit times.-->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Easy Digit Power</title>
+</head>
+<body>
+    <script>
+        // Ask the user to enter a 2-digit number
+        let num = parseInt(prompt("Enter a 2-digit number (e.g., 23):"));
+
+        // Check if the input is valid
+        if (isNaN(num)) {
+            document.write("Please enter a valid number.");
+        } else if (num < 10 || num > 99) {
+            document.write("Please enter a number between 10 and 99.");
+        } else {
+            // Split the number into two digits
+            let firstDigit = Math.floor(num / 10);  // Tens place
+            let secondDigit = num % 10;             // Ones place
+
+            // Start with 1, then multiply firstDigit by itself secondDigit times
+            let result = 1;
+            for (let i = 0; i < secondDigit; i++) {
+                result *= firstDigit;
+            }
+
+            // Show the steps and the final answer
+            document.write("First digit: " + firstDigit + "<br>");
+            document.write("Second digit: " + secondDigit + "<br>");
+            document.write(firstDigit + " ^ " + secondDigit + " = <strong>" + result + "</strong>");
+        }
+    </script>
+</body>
+</html>
