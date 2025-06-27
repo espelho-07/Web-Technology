@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <style>
+        .card {
+            width: auto;
+            height: auto;
+        }
+    </style>
+  </head>
+  <body>
+    <script>
+        let Students = [
+  {
+    createdAt: "2025-06-19T23:12:05.546Z",
+    name: "Renee Rogahn",
+    avatar: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/50.jpg",
+    id: "1"
+  },
+  {
+    createdAt: "2025-06-20T04:02:30.176Z",
+    name: "Santiago Collier",
+    avatar: "https://avatars.githubusercontent.com/u/18508911",
+    id: "2"
+  },
+  {
+    createdAt: "2025-06-20T03:32:42.337Z",
+    name: "Jeremiah Luettgen",
+    avatar: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/male/512/54.jpg",
+    id: "3"
+  },
+  {
+    createdAt: "2025-06-19T15:09:41.576Z",
+    name: "Wilson Johns",
+    avatar: "https://cdn.jsdelivr.net/gh/faker-js/assets-person-portrait/female/512/29.jpg",
+    id: "4"
+  },
+  {
+    createdAt: "2025-06-19T11:35:19.010Z",
+    name: "Grady Price",
+    avatar: "https://avatars.githubusercontent.com/u/67099928",
+    id: "5"
+  }
+]
+document.writeln("<div class='d-flex justify-content-center'>")
+        for (i = 0; i < Students.length; i++){
+            document.writeln(`
+                <div class="card" style="width: 18rem;">
+                  <img src="${Students[i].avatar}" class="card-img-top" alt="Image not found">
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">${Students[i].name}</li>
+                        <li class="list-group-item">${Students[i].id}</li>
+                        <li class="list-group-item">${Students[i].createdAt}</li>
+                    </ul>
+                  </div>
+                </div>
+            `)
+        }
+document.writeln("</div>")
+    </script>
+  </body>
+</html>
