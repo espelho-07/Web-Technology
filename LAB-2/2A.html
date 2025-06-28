@@ -1,4 +1,4 @@
-<!--WAP in JavaScript to print the factors of given number.-->
+<!--1-WAP in JavaScript to print the factors of given number.-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,15 +11,15 @@
         // Ask the user to enter a number
         let num = parseInt(prompt("Enter a number to find its factors:"));
 
-        // Validate input
+        // Validate input That it's Number or not
         if (isNaN(num)) {
             document.write("Invalid input: Please enter a numeric value.");
         } else if (num <= 0) {
-            document.write("Please enter a positive number greater than zero.");
+            document.write("Please enter a positive number greater than zero."); 
         } else {
-            document.write("The factors of " + num + " are:<br>");
+            document.write("The factors of " + num + " are:<br>"); 
 
-            for (let i = 1; i <= num; i++) {
+            for (let i = 1; i <= num; i++) {                   //If num%i==0 Then Prnt The Number Which Satisfies It
                 if (num % i === 0) {
                     document.writeln(i + " ");
                 }
