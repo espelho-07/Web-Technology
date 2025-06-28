@@ -1,0 +1,104 @@
+<!--Create a const object called "Product" To store information As Shown In Picture-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const Product = {
+            productName: "Parker Jotter Standart CT Ball Pen(BLACK)",
+            productPrice: 270,
+            productRating: 4,
+            productDeal: "Deal Of The Day",
+            productOffer: "5% Off"
+        }
+
+        console.log(Product.productPrice);
+        let choice = prompt("What You Want To Know About Product:\nPress 1 - Price\n2 - Name\n3 - Rating\n4 - Deal\n5 - Offer");
+
+        if (choice === "1") {
+            document.writeln(Product.productPrice);
+        } else if (choice === "2") {
+            document.writeln(Product.productName);
+        } else if (choice === "3") {
+            document.writeln(Product.productRating);
+        } else if (choice === "4") {
+            document.writeln(Product.productDeal);
+        } else if (choice === "5") {
+            document.writeln(Product.productOffer);
+        } else {
+            alert("Invalid input. Please enter a number from 1 to 5.");
+        }
+    </script>
+</body>
+
+<!-- == checks for equality with type conversion. That means if the types are different, JavaScript will try to convert them to the same type before comparing.
+- === checks for strict equality, meaning both the value and the type must be the same.
+!!!!!!Dont Forget To Add Comma , After Every Variables In Object.-->
+
+
+</html>
+
+<!--Create A Const Object Called "Profile" to store information As Shown in Picture-->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Creating an Object named "Profile"
+        const Profile = {
+            profileId: "espelho_07",
+            profileFollowers: 2678,
+            profileFollowing: 2718,
+            profileBio: "You Can If U Will be In Discipline",
+            isFollowing: false,
+            profilePost: 197
+        }
+
+        document.writeln(Profile);//!!!!!!!!!!!This Is Wrong It Will Not Print U Need To Acces Each Variable.........!!!!!!
+        //Printing In Console
+        console.log(Profile);
+        //For Getting Type Of Datatypes of Variables In OBject
+        console.log(typeof Profile.profileBio);
+        //OR
+        console.log(typeof Profile["profileBio"]);
+
+
+        //Giving choices To user
+        let uchoice = prompt("What You Want To Know About Product:\nPress 1 - Id\n2 - Follower\n3 - Following\n4 - Bio\n5 - isFollowing\n6- post");
+
+        if (uchoice === "1") {
+            document.writeln(Profile.profileId);
+        } else if (uchoice === "2") {
+            document.writeln(Profile.profileFollowers);
+        } else if (uchoice === "3") {
+            document.writeln(Profile.profileFollowing);
+        } else if (uchoice === "4") {
+            document.writeln(Profile.profileBio);
+        } else if (uchoice === "5") {
+            document.writeln(Profile.isFollowing);
+        } else if (uchoice === "6") {
+            document.writeln(Profile.profilePost);
+        } else {
+            alert("Invalid input. Please enter a number from 1 to 6.");
+        }
+
+
+    </script>
+</body>
+
+</html> 
