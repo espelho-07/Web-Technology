@@ -1,4 +1,4 @@
-<!--WAP in JavaScript to check whether the given number is palindrome or not.-->
+<!--5-WAP in JavaScript to check whether the given number is palindrome or not.-->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -43,3 +43,22 @@
 </body>
 
 </html>
+
+<!--✅ Step 1: let digit = num % 10;
+% means remainder. This line gives us last digit of the number.
+
+Example: 123 % 10 = 3
+
+So, digit = 3
+
+✅ Step 2: reverse = reverse * 10 + digit;
+We multiply the current reverse by 10 (to shift digits left) and add the new digit.
+
+reverse = 0 * 10 + 3 = 3
+
+✅ Step 3: num = Math.floor(num / 10);
+Divide number by 10 to remove the last digit.
+
+Math.floor(123 / 10) = 12
+
+So, num = 12-->

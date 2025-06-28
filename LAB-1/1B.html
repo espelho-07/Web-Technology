@@ -1,4 +1,4 @@
-<!-- WAP in JavaScript to check whether the given number is prime or not -->
+<!--2- WAP in JavaScript to check whether the given number is prime or not -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,11 +27,11 @@
 
             for (let i = 2; i < number; i++) {
                 if (number % i === 0) {
-                    temp = 1; // Found a divisor, so not prime
+                    temp = 1; // As It Got Aa Facor So It will not Be Prime Anymore So no neeed To check so breaking
                     break;
                 }
             }
-
+            //Printing The Final Answer
             if (temp === 0) {
                 document.write("The number you entered is a prime number.");
             } else {
