@@ -1,0 +1,63 @@
+<!--Lecture-2 [Operators And Conditional Statements]-->
+
+<!--Get User To input A Number Check if Number Is mUltiple Of 5 or not-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let a = parseInt(prompt("Enter A Number You Want to Check::\n")); //Here!!!See ParseInt bcz We Need To concvert To Integer from String As We Will Get Input In String
+        //Printing That NUmber Entered Is Multiple Of 5 OR NOT
+        if (a % 5 == 0) {
+            //Printing That Number Entered Is multiple Of 5
+            document.writeln("The Number You Entered " + a + " Is MULTIPLE of 5\n");
+        } else {
+            //Printing That Number Entered Is Not multiple Of 5
+            document.writeln("The Number You Entered " + a + " Is NOT MULTIPLE of 5\n");
+        }
+    </script>
+</body>
+
+</html>
+
+<!--Write A code which can give grades to students according to their score-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //Asking Marks Of Student from User
+        let score = parseInt(prompt("Enter The Marks Of Student::\n"));
+        //Checking Is Marks Entered Is VAlid Or Not
+        if (score > 100) {
+            document.writeln("Marks Cant Be Greater Than 100\n");
+            //For Grade According To Marks
+        } else if (score <= 100 && score >= 80) {
+            document.writeln("The Grade Of Student Who Got " + score + " MArks Is A");
+        } else if (score < 80 && score >= 70) {
+            document.writeln("The Grade Of Student Who Got " + score + " MArks Is B");
+        } else if (score < 70 && score >= 60) {
+            document.writeln("The Grade Of Student Who Got " + score + " MArks Is C");
+        } else if (score < 60 && score >= 50) {
+            document.writeln("The Grade Of Student Who Got " + score + " MArks Is D");
+        } if (score < 50 && score <= 0) {
+            document.writeln("The Grade Of Student Who Got " + score + " MArks Is F");
+        }
+    </script>
+</body>
+
+</html>
