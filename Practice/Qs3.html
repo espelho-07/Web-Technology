@@ -1,0 +1,86 @@
+<!--Print Even Number Between 1-100-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        document.writeln("The Even Number Between 1-100 Are-\n")
+        for (let i = 1; i < 101; i++) {
+            if (i % 2 == 0) {                                   //Logic Of Even Number
+                document.writeln("The Number " + i +" is EVEN");
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<!--Create a game where you Start With Any Random Number.Ask The User To Keep Guessing The nUmber Until user enters corect value-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let number = 17;
+
+        let usernumber = parseInt(prompt("Enter The Number U Gues It Can Be-\n"));
+
+        if (usernumber == number) {
+            document.writeln("Congratulations!! You Guessed Right");
+        } else {
+            document.writeln("OOPS!! You Guessed Wrong Try Again::\n");
+        }
+    </script>
+</body>
+
+</html>
+
+<br>
+<br>
+<br>
+<br>
+
+<!--Strings in js are immutable even if u apply function str.toUppercase it will not change the original one it willl create new string and then it will display-->
+
+<!-- Prompt the user to enter their full name. Generate a username for them based on the input.
+ Start username with @, followed by their full name and ending with the fullname length.-->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let name = prompt("Enter Your Full Name::\n");
+
+        let username = "@"+name+name.length;
+        document.writeln(username);
+    </script>
+</body>
+
+</html>
