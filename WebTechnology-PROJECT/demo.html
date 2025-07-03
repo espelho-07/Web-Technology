@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Attendance Tracker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .student {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .student-name {
+            flex: 1;
+            font-weight: bold;
+        }
+        .status {
+            width: 100px;
+            text-align: center;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .present {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .absent {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        button {
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            color: white;
+        }
+        .present-btn {
+            background-color: #28a745;
+        }
+        .absent-btn {
+            background-color: #dc3545;
+        }
+        .reset-btn {
+            background-color: #007bff;
+            display: block;
+            margin: 20px auto;
+        }
+        .summary {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Student Attendance Tracker</h1>
+    <div id="studentList"></div>
+    <div class="summary">
+        <p>Total Present: <span id="presentCount">0</span></p>
+        <p>Total Absent: <span id="absentCount">0</span></p>
+    </div>
+    <button class="reset-btn" onclick="resetAttendance()">Reset Attendance</button>
+
+    <script>
+        // Array of student names
+        const students = [
+            "Alice Johnson",
+            "Bob Smith",
+            "Charlie Brown",
+            "Diana Wilson",
+            "Emma Davis",
+            "Frank Miller",
+            "Grace Lee",
+            "Henry Taylor",
+            "Isabella Moore",
+            "James Anderson"
+        ];
+
+        // Initialize attendance array
+        let attendance = students.map(() => 'Absent');
+
+        // Function to update summary counts
+        function updateSummary() {
+            const presentCount = attendance.filter(status => status === 'Present').length;
+            const absentCount = attendance.length - presentCount;
+            document.getElementById('presentCount').textContent = presentCount;
+            document.getElementById('absentCount').textContent = absentCount;
+        }
+
+        // Function to render student list
+        function renderStudents() {
+            const studentList = document.getElementById('studentList');
+            studentList.innerHTML = '';
+            students.forEach((student, index) => {
+                const studentDiv = document.createElement('div');
+                studentDiv.className = 'student';
+                studentDiv.innerHTML = `
+                    <span class="student-name">${student}</span>
+                    <button class="present-btn" onclick="markAttendance(${index}, 'Present')">Present</button>
+                    <button class="absent-btn" onclick="markAttendance(${index}, 'Absent')">Absent</button>
+                    <span class="status ${attendance[index].toLowerCase()}">${attendance[index]}</span>
+                `;
+                studentList.appendChild(studentDiv);
+            });
+            updateSummary();
+        }
+
+        // Function to mark attendance
+        function markAttendance(index, status) {
+            attendance[index] = status;
+            renderStudents();
+        }
+
+        // Function to reset attendance
+        function resetAttendance() {
+            attendance = students.map(() => 'Absent');
+            renderStudents();
+        }
+
+        // Initial render
+        renderStudents();
+    </script>
+</body>
+</html>
