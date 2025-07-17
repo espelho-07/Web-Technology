@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Attendance Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f6ff;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background-color: #4a90e2;
+      color: white;
+      padding: 10px 15px;
+      margin: 5px 3px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #357ab8;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    th,
+    td {
+      border: 1px solid #aaa;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .action-button {
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 4px;
+    }
+
+    .action-button:hover {
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+  <!--Heading Of The Project-->
+  <h1>Student Attendance Tracker</h1>
+
+  <!--All Needed Buttons-->
+  <button onclick="ClassA()" class="A3">Class A (CSE-3A)</button>
+  <br><br>
+  <button onclick="markAllPresent()">Mark All Present</button>
+  <button onclick="takeAttendance()">Take Attendance</button>
+  <button onclick="resetAttendance()">Reset</button>
+
+  <!--For Printing Attendance On The Page Itself-->
+  <div id="attendanceSummary" style="margin-top: 20px; font-weight: bold;"></div>
+
+  <!--Table Structure Of Students-->
+  <table id="studentTable">
+    <thead>
+      <tr>
+        <th>Sr.</th>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Enrollment No</th>
+        <th>Action</th>
+        <th>State</th>
+      </tr>
+    </thead>
+    <!--Giving Id To Body For Body Of The Project-->
+    <tbody id="tableBody"></tbody>
+  </table>
+
+  <script>
+    //Array Of Student
+    const studentListCSE3A = [
+      { sr: 1, enrollmentNo: "24010101001", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "201", batch: 1, state: "Absent" },
+      { sr: 2, enrollmentNo: "24010101002", name: "Bhatia Priya Anil", gender: "F", rollNo: "202", batch: 1, state: "Absent" },
+      { sr: 3, enrollmentNo: "24010101003", name: "Chauhan Vikram Rajesh", gender: "M", rollNo: "203", batch: 1, state: "Absent" },
+      { sr: 4, enrollmentNo: "24010101004", name: "Desai Anjali Kiran", gender: "F", rollNo: "204", batch: 1, state: "Absent" },
+      { sr: 5, enrollmentNo: "24010101005", name: "Gupta Arjun Manoj", gender: "M", rollNo: "205", batch: 1, state: "Absent" },
+      { sr: 6, enrollmentNo: "24010101006", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "206", batch: 1, state: "Absent" },
+      { sr: 7, enrollmentNo: "24010101007", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "207", batch: 1, state: "Absent" },
+      { sr: 8, enrollmentNo: "24010101008", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "208", batch: 1, state: "Absent" },
+      { sr: 9, enrollmentNo: "24010101009", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "209", batch: 1, state: "Absent" },
+      { sr: 10, enrollmentNo: "24010101010", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "210", batch: 1, state: "Absent" },
+      { sr: 11, enrollmentNo: "24010101011", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "211", batch: 1, state: "Absent" },
+      { sr: 12, enrollmentNo: "24010101012", name: "Agarwal Rohan Sanjay", gender: "M", rollNo: "212", batch: 1, state: "Absent" },
+    ];
+
+    //Function To Make table Using JS It Will Create Row According To Object present In Array
+    function ClassA() {
+      let tableBody = document.getElementById("tableBody");
+      let html = "";
+
+      studentListCSE3A.forEach((student, index) => {
+        html += `
+          <tr>
+            <td>${student.sr}</td>
+            <td>${student.rollNo}</td>
+            <td>${student.name}</td>
+            <td>${student.enrollmentNo}</td>
+            <td>
+              <button class="action-button" onclick="markAttendance(${index}, 'Present')">Present</button>
+              <button class="action-button" onclick="markAttendance(${index}, 'Absent')">Absent</button>
+            </td>
+            <td class="${student.state == 'Present' ? 'present' : 'absent'}">${student.state}</td>
+          </tr>
+        `;
+      });
+
+      tableBody.innerHTML = html;
+    }
+
+    //Function To Mark attendance(This Will Marks Students State Present Or Absent)
+    function markAttendance(index, state) {
+      studentListCSE3A[index].state = state;   //Marks The Student's State To Present Or Absent (Jyre For Loop Execute Thai Tyre Dar Index Ma pde J state Nkhye Ae Update Thai)
+      ClassA();     //Calling Again To Update The Table
+    }
+
+    //Function To Mark All Student Present(Make's Student State To Present)
+    function markAllPresent() {
+      studentListCSE3A.forEach(student => student.state = "Present");  //Marks All Students State To Present
+      ClassA();    //Calling Again To Update The Table
+    }
+
+    //Function To Reset(This Will Mark All Student To Absent)
+    function resetAttendance() {
+      studentListCSE3A.forEach(student => student.state = "Absent");  //Marks All Student State To Absent
+      ClassA();   //Calling Again To Update The Table
+    }
+
+    //Function To Store Absent Roll No. And Present Total
+    function takeAttendance() {
+      let presentCount = 0;
+      let absentRollNo = [];
+
+      studentListCSE3A.forEach(student => {
+        if (student.state == "Present") {
+          presentCount++;
+        } else {
+          absentRollNo.push(student.rollNo);
+        }
+      });
+      
+      //Final Message To Print (Absent Students And Present Students)
+      let message = ` Total Present: ${presentCount} / ${studentListCSE3A.length}`;
+      if (absentRollNo.length > 0) {
+        message += `\n Absent Roll Numbers: ${absentRollNo.join(", ")}`;
+      } else {
+        message += `\n All students are present!`;
+      }
+
+      //To Print On Page!!
+      //document.getElementById("attendanceSummary").innerText = message;
+
+      //To Print As Pop Up Box
+      alert(message);
+    }
+  </script>
+</body>
+</html>

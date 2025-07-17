@@ -1,387 +1,166 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Student Attendance Tracker</title>
     <style>
-
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+        .container {
+            margin: 20px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+        .present {
+            background-color: #28a745;
+            color: white;
+            font-weight: bold;
+        }
+        .absent {
+            background-color: #dc3545;
+            color: white;
+            font-weight: bold;
+        }
+        .action-button {
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .present-button {
+            background-color: #28a745;
+            color: white;
+        }
+        .absent-button {
+            background-color: #dc3545;
+            color: white;
+        }
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+            button {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+            .action-button {
+                padding: 4px 8px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
-
 <body>
-    <h1>Student Attendance Tracker</h1>
-    <button id="classA" onclick="classA()">Class A</button>
-    <button id="classB" onclick="classB()">Class B</button>
-    <button id="reset">Reset</button>
-    <button id="allPresent">All Present</button>
-    <button id="allAbsent">All Absent</button>
-    <button id="tekeatend">Take attendance</button>
-    <table class="table">
-        <thead>
-            <tr>
-                <td>Sr</td>
-                <td>EnrollmentNo</td>
-                <td>Name</td>
-                <td>Roll No.</td>
-                <td>Button</td>
-                <td></td>
-                <td>State</td>
-            </tr>
-        </thead>
-        <tbody id="tbody">
-        </tbody>
-    </table>
-    <br>
-    <br>
+    <div class="container">
+        <h1>Student Attendance Tracker - CSE-3A</h1>
+        <button onclick="showClassA()">Show Class A</button>
+        <br><br>
+        <button onclick="markAllPresent()">Mark All Present</button>
+        <button onclick="takeAttendance()">Take Attendance</button>
+        <button onclick="resetAttendance()">Reset</button>
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>Sr.</th>
+                    <th>Roll No</th>
+                    <th>Name</th>
+                    <th>Enrollment No</th>
+                    <th>Action</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+        </table>
+    </div>
+
     <script>
-        const studentListCSE3A = [
-            { sr: 1, enrollmentNo: "24010101151", name: "Jiya Kyada", gender: "F", rollNo: 101, batch: 1 },
-            { sr: 2, enrollmentNo: "24010101257", name: "Shah Dhvani Hitesh", gender: "F", rollNo: 102, batch: 1 },
-            { sr: 3, enrollmentNo: "24010101251", name: "Saraya Mohit Haresh", gender: "M", rollNo: 103, batch: 1 },
-            { sr: 4, enrollmentNo: "24010101311", name: "Zalavadiya Heet Siddharth", gender: "M", rollNo: 104, batch: 1 },
-            { sr: 5, enrollmentNo: "24010101065", name: "Darshil Dobariya", gender: "M", rollNo: 105, batch: 1 },
-            { sr: 6, enrollmentNo: "24010101076", name: "Nafisa Gandhi", gender: "F", rollNo: 106, batch: 1 },
-            { sr: 7, enrollmentNo: "24010101299", name: "Vasani Yashvi Niteshbhai", gender: "F", rollNo: 107, batch: 1 },
-            { sr: 8, enrollmentNo: "24010101056", name: "Delvadiya Manavkumar Kirtibhai", gender: "M", rollNo: 108, batch: 1 },
-            { sr: 9, enrollmentNo: "24010101008", name: "Ashara Palak Gopalbhai", gender: "F", rollNo: 109, batch: 1 },
-            { sr: 10, enrollmentNo: "24010101158", name: "Lunagariya Greshi Kamleshbhai", gender: "F", rollNo: 110, batch: 1 },
-            { sr: 11, enrollmentNo: "24010101187", name: "Nanavati Shrushti Gargesh", gender: "F", rollNo: 111, batch: 1 },
-            { sr: 12, enrollmentNo: "24010101238", name: "Ranpara Jay Manishbhai", gender: "M", rollNo: 112, batch: 1 },
-            { sr: 13, enrollmentNo: "24010101173", name: "Disha Mehta", gender: "F", rollNo: 113, batch: 1 },
-            { sr: 14, enrollmentNo: "24010101282", name: "Thummar Niraj Bhaveshbhai", gender: "M", rollNo: 114, batch: 1 },
-            { sr: 15, enrollmentNo: "24010101116", name: "Kachhava Nakul Umeshbhai", gender: "M", rollNo: 115, batch: 1 },
-            { sr: 16, enrollmentNo: "24010101124", name: "Kanabar Urva Darshanbhai", gender: "F", rollNo: 116, batch: 1 },
-            { sr: 17, enrollmentNo: "24010101186", name: "Nakar Dhruvil Hitesh", gender: "M", rollNo: 117, batch: 1 },
-            { sr: 18, enrollmentNo: "24010101223", name: "Poshiya Priyanshi Ajaybhai", gender: "F", rollNo: 118, batch: 1 },
-            { sr: 19, enrollmentNo: "24010101013", name: "Baravalia Dharitri Manharbhai", gender: "F", rollNo: 119, batch: 1 },
-            { sr: 20, enrollmentNo: "24010101184", name: "Muchhara Kashish Hiteshbhai", gender: "F", rollNo: 120, batch: 1 },
-            { sr: 21, enrollmentNo: "24010101038", name: "Chauhan Aditya Sureshbhai", gender: "M", rollNo: 121, batch: 2 },
-            { sr: 22, enrollmentNo: "24010101097", name: "Harsora Sakshi Ajaybhai", gender: "F", rollNo: 122, batch: 2 },
-            { sr: 23, enrollmentNo: "24010101139", name: "Katrodiya Sahil Rajeshbhai", gender: "M", rollNo: 123, batch: 2 },
-            { sr: 24, enrollmentNo: "24010101284", name: "Trambadiya Parikshit Parimalbhai", gender: "M", rollNo: 124, batch: 2 },
-            { sr: 25, enrollmentNo: "24010101192", name: "Padariya Preya Parasbhai", gender: "F", rollNo: 125, batch: 2 },
-            { sr: 26, enrollmentNo: "24010101074", name: "Gambhava Krushiben Manojbhai", gender: "F", rollNo: 126, batch: 2 },
-            { sr: 27, enrollmentNo: "24010101107", name: "Jadeja Vishwrajsinh Krushnasinh", gender: "M", rollNo: 127, batch: 2 },
-            { sr: 28, enrollmentNo: "24010101214", name: "Patel Jiya Sandipbhai", gender: "F", rollNo: 128, batch: 2 },
-            { sr: 29, enrollmentNo: "24010101219", name: "Pipalava Smit Ashvinbhai", gender: "M", rollNo: 129, batch: 2 },
-            { sr: 30, enrollmentNo: "24010101091", name: "Gohil Harshrajsinh Jitendrasinh", gender: "M", rollNo: 130, batch: 2 },
-            { sr: 31, enrollmentNo: "24010101138", name: "Kathiriya Arshi Keshubhai", gender: "F", rollNo: 131, batch: 2 },
-            { sr: 32, enrollmentNo: "24010101288", name: "Undhad Vishwa Rajesh", gender: "F", rollNo: 132, batch: 2 },
-            { sr: 33, enrollmentNo: "24010101229", name: "Diya Raiyani", gender: "F", rollNo: 133, batch: 2 },
-            { sr: 34, enrollmentNo: "24010101043", name: "Chavda Maulik Vinodbhai", gender: "M", rollNo: 134, batch: 2 },
-            { sr: 35, enrollmentNo: "24010101044", name: "Chavda Priyanka Prabodhbhai", gender: "F", rollNo: 135, batch: 2 },
-            { sr: 36, enrollmentNo: "24010101045", name: "Chavda Virendrasinh Ashwinbhai", gender: "M", rollNo: 136, batch: 2 },
-            { sr: 37, enrollmentNo: "24010101072", name: "Galani Krunal Chetanbhai", gender: "M", rollNo: 137, batch: 2 },
-            { sr: 38, enrollmentNo: "24010101140", name: "Kavar Suchi Vasantbhai", gender: "F", rollNo: 138, batch: 2 },
-            { sr: 39, enrollmentNo: "24010101190", name: "Odedara Nilesh Parbat", gender: "M", rollNo: 139, batch: 2 },
-            { sr: 40, enrollmentNo: "24010101298", name: "Vasani Dishita Nikhilkumar", gender: "F", rollNo: 140, batch: 2 },
-            { sr: 41, enrollmentNo: "24010101290", name: "Vachhani Vaishvi Manojkumar", gender: "F", rollNo: 141, batch: 3 },
-            { sr: 42, enrollmentNo: "24010101017", name: "Bhadania Ronit Yatinbhai", gender: "M", rollNo: 142, batch: 3 },
-            { sr: 43, enrollmentNo: "24010101039", name: "Chauhan Jenil Virenbhai", gender: "M", rollNo: 143, batch: 3 },
-            { sr: 44, enrollmentNo: "24010101302", name: "Virpara Krisha Rajeshbhai", gender: "F", rollNo: 144, batch: 3 },
-            { sr: 45, enrollmentNo: "24010101035", name: "Chandra Darshit Hiteshbhai", gender: "M", rollNo: 145, batch: 3 },
-            { sr: 46, enrollmentNo: "24010101057", name: "Detroja Ruchit Arvindbhai", gender: "M", rollNo: 146, batch: 3 },
-            { sr: 47, enrollmentNo: "24010101131", name: "Kapuriya Hepin Pravinbhai", gender: "M", rollNo: 147, batch: 3 },
-            { sr: 48, enrollmentNo: "24010101090", name: "Gohel Smit Ashvinbhai", gender: "M", rollNo: 148, batch: 3 },
-            { sr: 49, enrollmentNo: "24010101215", name: "Patel Kirtan Amitbhai", gender: "M", rollNo: 149, batch: 3 },
-            { sr: 50, enrollmentNo: "24010101085", name: "Ginoya Deep Kantilal", gender: "M", rollNo: 150, batch: 3 },
-            { sr: 51, enrollmentNo: "24010101169", name: "Marvaniya Jainish Dharmendrabhai", gender: "M", rollNo: 151, batch: 3 },
-            { sr: 52, enrollmentNo: "24010101004", name: "Ajudiya Yash Nareshbhai", gender: "M", rollNo: 152, batch: 3 },
-            { sr: 53, enrollmentNo: "24010101031", name: "Manas Borisagar", gender: "M", rollNo: 153, batch: 3 },
-            { sr: 54, enrollmentNo: "24010101113", name: "Joshi Soham Kamleshbhai", gender: "M", rollNo: 154, batch: 3 },
-            { sr: 55, enrollmentNo: "24010101117", name: "Kakadiya Khilan Manishbhai", gender: "M", rollNo: 155, batch: 3 },
-            { sr: 56, enrollmentNo: "24010101265", name: "Sidhdhapura Dhaval Dharmeshbhai", gender: "M", rollNo: 156, batch: 3 },
-            { sr: 57, enrollmentNo: "24010101267", name: "Sitapara Aryan Sunilbhai", gender: "M", rollNo: 157, batch: 3 },
-            { sr: 58, enrollmentNo: "24010101021", name: "Bhatasana Nainshi Pareshbhai", gender: "F", rollNo: 158, batch: 3 },
-            { sr: 59, enrollmentNo: "24010101163", name: "Malvaniya Viraj Jatinbhai", gender: "M", rollNo: 159, batch: 3 },
-            { sr: 60, enrollmentNo: "24010101197", name: "Tanisha Pambhar", gender: "F", rollNo: 160, batch: 3 },
-            { sr: 61, enrollmentNo: "24010101196", name: "Padshala Kuldeep Rajendrakumar", gender: "M", rollNo: 161, batch: 4 },
-            { sr: 62, enrollmentNo: "24010101026", name: "Bhimani Vishva Manishbhai", gender: "F", rollNo: 162, batch: 4 },
-            { sr: 63, enrollmentNo: "24010101132", name: "Karan Anushka Pintubhai", gender: "F", rollNo: 163, batch: 4 },
-            { sr: 64, enrollmentNo: "24010101307", name: "Vyas Kavya Sachin", gender: "F", rollNo: 164, batch: 4 },
-            { sr: 65, enrollmentNo: "24010101123", name: "Kamani Purna Hareshbhai", gender: "M", rollNo: 165, batch: 4 },
-            { sr: 66, enrollmentNo: "24010101183", name: "Mori Nandita Renishkumar", gender: "F", rollNo: 166, batch: 4 },
-            { sr: 67, enrollmentNo: "24010101239", name: "Ratanghayra Pankti Himanshu", gender: "F", rollNo: 167, batch: 4 },
-            { sr: 68, enrollmentNo: "24010101242", name: "Rupala Nikhil Kashmeeraben", gender: "M", rollNo: 168, batch: 4 },
-            { sr: 69, enrollmentNo: "24010101106", name: "Jadeja Shivrajsinh Girirajsinh", gender: "M", rollNo: 169, batch: 4 },
-            { sr: 70, enrollmentNo: "24010101252", name: "Hirva Satani", gender: "F", rollNo: 170, batch: 4 },
-            { sr: 71, enrollmentNo: "24010101230", name: "Raiyani Jenil Sanjaybhai", gender: "M", rollNo: 171, batch: 4 },
-            { sr: 72, enrollmentNo: "24010101034", name: "Chandpa Prince Sureshbhai", gender: "M", rollNo: 172, batch: 4 },
-            { sr: 73, enrollmentNo: "24010101069", name: "Faldu Vrajesh Sanjaybhai", gender: "M", rollNo: 173, batch: 4 },
-            { sr: 74, enrollmentNo: "24010101142", name: "Khambholiya Manya Parasharbhai", gender: "F", rollNo: 174, batch: 4 },
-            { sr: 75, enrollmentNo: "24010101224", name: "Prajapati Kaivalya Samir", gender: "M", rollNo: 175, batch: 4 },
-            { sr: 76, enrollmentNo: "24010101182", name: "Moral Aadit Shaileshbhai", gender: "M", rollNo: 176, batch: 4 },
-            { sr: 77, enrollmentNo: "24010101260", name: "Shihora Vibhu Chetanbhai", gender: "M", rollNo: 177, batch: 4 },
-            { sr: 78, enrollmentNo: "24010101126", name: "Kanani Kruti Jayeshbhai", gender: "F", rollNo: 178, batch: 4 },
-            { sr: 79, enrollmentNo: "24010101135", name: "Karoliya Princekumar Sandipbhai", gender: "M", rollNo: 179, batch: 4 },
-            { sr: 80, enrollmentNo: "24010101146", name: "Khunt Rutvi Hiteshbhai", gender: "F", rollNo: 180, batch: 4 },
-            { sr: 81, enrollmentNo: "24010101036", name: "Charadva Abhishek Virenbhai", gender: "M", rollNo: 181, batch: 5 },
-            { sr: 82, enrollmentNo: "24010101053", name: "Dave Krisha Kalpeshbhai", gender: "F", rollNo: 182, batch: 5 },
-            { sr: 83, enrollmentNo: "24010101119", name: "Janvi Kalaria", gender: "F", rollNo: 183, batch: 5 },
-            { sr: 84, enrollmentNo: "24010101232", name: "Rajwani Rohan Malik", gender: "M", rollNo: 184, batch: 5 },
-            { sr: 85, enrollmentNo: "24010101235", name: "Rana Parthrajsinh Bhupatsinh", gender: "M", rollNo: 185, batch: 5 },
-            { sr: 86, enrollmentNo: "24010101271", name: "Solanki Ronak Arvindbhai", gender: "M", rollNo: 186, batch: 5 },
-            { sr: 87, enrollmentNo: "24010101198", name: "Panchal Vedantkumar Niravbhai", gender: "M", rollNo: 187, batch: 5 },
-            { sr: 88, enrollmentNo: "24010101006", name: "Ambasana Venisha Hitenbhai", gender: "F", rollNo: 188, batch: 5 },
-            { sr: 89, enrollmentNo: "24010101228", name: "Raichura Smeet Rohitkumar", gender: "M", rollNo: 189, batch: 5 },
-            { sr: 90, enrollmentNo: "24010101075", name: "Gambhava Mirali Sureshbhai", gender: "F", rollNo: 190, batch: 5 },
-            { sr: 91, enrollmentNo: "24010101050", name: "Dave Dhruv Viralkumar", gender: "M", rollNo: 191, batch: 5 },
-            { sr: 92, enrollmentNo: "24010101080", name: "Ghetiya Ritu Pankajbhai", gender: "F", rollNo: 192, batch: 5 },
-            { sr: 93, enrollmentNo: "24010101226", name: "Radhanpara Saumya Jatinbhai", gender: "M", rollNo: 193, batch: 5 },
-            { sr: 94, enrollmentNo: "24010101308", name: "Yadav Gaurav Kaushikbhai", gender: "M", rollNo: 194, batch: 5 },
-            { sr: 95, enrollmentNo: "24010101033", name: "Buddhadev Misri Sanjaybhai", gender: "F", rollNo: 195, batch: 5 },
-            { sr: 96, enrollmentNo: "24010101112", name: "Joshi Kairav Paren", gender: "M", rollNo: 196, batch: 5 },
-            { sr: 97, enrollmentNo: "24010101253", name: "Savaliya Dhruvi Bharatbhai", gender: "F", rollNo: 197, batch: 5 },
-            { sr: 98, enrollmentNo: "24010101227", name: "Radhanpura Jeel Nimish", gender: "F", rollNo: 198, batch: 5 },
-            { sr: 99, enrollmentNo: "24010101255", name: "Savaliya Priyanshi Sureshbhai", gender: "F", rollNo: 199, batch: 5 },
-            { sr: 100, enrollmentNo: "24010101310", name: "Zala Bhavyadeepsinh Pruthvirajsinh", gender: "M", rollNo: 200, batch: 5 },
-            { sr: 101, enrollmentNo: "24010101266", name: "Sinha Milankumar Sujitkumar", gender: "M", rollNo: 201, batch: 6 },
-            { sr: 102, enrollmentNo: "24010101153", name: "Lakhtaria Kevin Homin", gender: "M", rollNo: 202, batch: 6 },
-            { sr: 103, enrollmentNo: "24010101180", name: "Moliya Kartavya Bhaveshbhai", gender: "M", rollNo: 203, batch: 6 },
-            { sr: 104, enrollmentNo: "24010101181", name: "Monpara Nij Hareshbhai", gender: "M", rollNo: 204, batch: 6 },
-            { sr: 105, enrollmentNo: "24010101280", name: "Divya Thakar", gender: "M", rollNo: 205, batch: 6 },
-            { sr: 106, enrollmentNo: "24010101177", name: "Mendapara Piyu Amishbhai", gender: "F", rollNo: 206, batch: 6 },
-            { sr: 107, enrollmentNo: "24010101199", name: "Pandya Karan Tusharbhai", gender: "M", rollNo: 207, batch: 6 },
-            { sr: 108, enrollmentNo: "24010101241", name: "Raval Meet Mohitkumar", gender: "M", rollNo: 208, batch: 6 },
-            { sr: 109, enrollmentNo: "24010101303", name: "Virpariya Heer Manishbhai", gender: "F", rollNo: 209, batch: 6 },
-            { sr: 110, enrollmentNo: "24010101020", name: "Bhanushali Hiral Bhaven", gender: "F", rollNo: 210, batch: 6 },
-            { sr: 111, enrollmentNo: "24010101121", name: "Kamaliya Akashkumar Rameshbhai", gender: "M", rollNo: 211, batch: 6 },
-            { sr: 112, enrollmentNo: "24010101222", name: "Popat Honey Nileshbhai", gender: "F", rollNo: 212, batch: 6 },
-            { sr: 113, enrollmentNo: "24010101009", name: "Badrakiya Meet Bharatbhai", gender: "M", rollNo: 213, batch: 6 },
-            { sr: 114, enrollmentNo: "24010101125", name: "Kanani Kavit Nareshbhai", gender: "M", rollNo: 214, batch: 6 },
-            { sr: 115, enrollmentNo: "24010101005", name: "Ambaliya Manan Jayeshbhai", gender: "M", rollNo: 215, batch: 6 },
-            { sr: 116, enrollmentNo: "24010101099", name: "Hinsu Umang Bharatbhai", gender: "M", rollNo: 216, batch: 6 },
-            { sr: 117, enrollmentNo: "24010101118", name: "Kakaniya Bhavy Niteshbhai", gender: "M", rollNo: 217, batch: 6 },
-            { sr: 118, enrollmentNo: "24010101195", name: "Padia Kartik Balkrishna", gender: "M", rollNo: 218, batch: 6 },
-            { sr: 119, enrollmentNo: "24010101166", name: "Mankada Hasan Shabbirhusain", gender: "M", rollNo: 219, batch: 6 },
-            { sr: 120, enrollmentNo: "24010101172", name: "Mehta Dhairy Kalpeshbhai", gender: "M", rollNo: 220, batch: 6 },
-            { sr: 121, enrollmentNo: "24010101174", name: "Mehta Het Lalitkumar", gender: "M", rollNo: 221, batch: 7 },
-            { sr: 122, enrollmentNo: "24010101246", name: "Kahan Sanghani", gender: "M", rollNo: 222, batch: 7 },
-            { sr: 123, enrollmentNo: "24010101095", name: "Gotani Himesh Sanjaybhai", gender: "M", rollNo: 223, batch: 7 },
-            { sr: 124, enrollmentNo: "24010101189", name: "Narola Yash Nileshbhai", gender: "M", rollNo: 224, batch: 7 },
-            { sr: 125, enrollmentNo: "24010101279", name: "Targata Dharmishtha Arjanbhai", gender: "F", rollNo: 225, batch: 7 },
-            { sr: 126, enrollmentNo: "24010101030", name: "Bhuva Tirth Shaileshbhai", gender: "M", rollNo: 226, batch: 7 },
-            { sr: 127, enrollmentNo: "24010101108", name: "Jadeja Yashraj Lakhdhirsinh", gender: "M", rollNo: 227, batch: 7 },
-            { sr: 128, enrollmentNo: "24010101225", name: "Krisha Pujara", gender: "F", rollNo: 228, batch: 7 },
-            { sr: 129, enrollmentNo: "24010101296", name: "Varsani Ritul Hirji", gender: "M", rollNo: 229, batch: 7 },
-            { sr: 130, enrollmentNo: "24010101208", name: "Parmar Dhyey Dharmendra", gender: "M", rollNo: 230, batch: 7 },
-            { sr: 131, enrollmentNo: "24010101263", name: "Shingala Mansi Rajeshbhai", gender: "F", rollNo: 231, batch: 7 },
-            { sr: 132, enrollmentNo: "24010101066", name: "Dobariya Jeel Upendrabhai", gender: "M", rollNo: 232, batch: 7 },
-            { sr: 133, enrollmentNo: "24010101143", name: "Khant Mannkumar Jigneshbhai", gender: "M", rollNo: 233, batch: 7 },
-            { sr: 134, enrollmentNo: "24010101309", name: "Yadav Neel Hiteshbhai", gender: "M", rollNo: 234, batch: 7 },
-            { sr: 135, enrollmentNo: "24010101007", name: "Andodariya Yash Maheshbhai", gender: "M", rollNo: 235, batch: 7 },
-            { sr: 136, enrollmentNo: "24010101101", name: "Hirani Jeelkumar Sanjaybhai", gender: "M", rollNo: 236, batch: 7 },
-            { sr: 137, enrollmentNo: "24010101165", name: "Mankad Shyamsundar Mitbhai", gender: "M", rollNo: 237, batch: 7 },
-            { sr: 138, enrollmentNo: "24010101001", name: "Agavan Rohan Farukbhai", gender: "M", rollNo: 238, batch: 7 },
-            { sr: 139, enrollmentNo: "24010101018", name: "Bhadja Zeel Satishkumar", gender: "M", rollNo: 239, batch: 7 },
-            { sr: 140, enrollmentNo: "24010101028", name: "Shreya Vijaybhai Bhundia", gender: "F", rollNo: 240, batch: 7 },
-            { sr: 141, enrollmentNo: "24010101002", name: "Aghara Keyur Hiteshbhai", gender: "M", rollNo: 241, batch: 8 },
-            { sr: 142, enrollmentNo: "24010101032", name: "Buddhadev Deep Nitinbhai", gender: "M", rollNo: 242, batch: 8 },
-            { sr: 143, enrollmentNo: "24010101086", name: "Godham Meet Maheshbhai", gender: "M", rollNo: 243, batch: 8 },
-            { sr: 144, enrollmentNo: "24010101137", name: "Katariya Trisha Ashvinbhai", gender: "F", rollNo: 244, batch: 8 },
-            { sr: 145, enrollmentNo: "24010101301", name: "Vekariya Jay Bipinbhai", gender: "M", rollNo: 245, batch: 8 },
-            { sr: 146, enrollmentNo: "24010101077", name: "Rutvi Gautami", gender: "F", rollNo: 246, batch: 8 },
-            { sr: 147, enrollmentNo: "24010101247", name: "Sankaliya Aryan Ashokbhai", gender: "M", rollNo: 247, batch: 8 },
-            { sr: 148, enrollmentNo: "24010101078", name: "Ghadiya Yashvi Sanjaybhai", gender: "F", rollNo: 248, batch: 8 },
-            { sr: 149, enrollmentNo: "24010101037", name: "Ved Chatvani", gender: "M", rollNo: 249, batch: 8 },
-            { sr: 150, enrollmentNo: "24010101084", name: "Ghorai Swati Sanjib", gender: "F", rollNo: 250, batch: 8 },
-            { sr: 151, enrollmentNo: "24010101134", name: "Karena Radhika Bharatbhai", gender: "F", rollNo: 251, batch: 8 },
-            { sr: 152, enrollmentNo: "24010101200", name: "Pandya Kruti Tusharbhai", gender: "F", rollNo: 252, batch: 8 },
-            { sr: 153, enrollmentNo: "24010101218", name: "Patel Tejkumar Niteshbhai", gender: "M", rollNo: 253, batch: 8 },
-            { sr: 154, enrollmentNo: "24010101244", name: "Sagpariya Mahee Nitinbhai", gender: "F", rollNo: 254, batch: 8 },
-            { sr: 155, enrollmentNo: "24010101258", name: "Sherasiya Shyam Sureshbhai", gender: "M", rollNo: 255, batch: 8 },
-            { sr: 156, enrollmentNo: "24010101157", name: "Liya Hirvita Rajendra", gender: "F", rollNo: 256, batch: 8 },
-            { sr: 157, enrollmentNo: "24010101003", name: "Ahir Krishna Manishbhai", gender: "F", rollNo: 257, batch: 8 },
-            { sr: 158, enrollmentNo: "24010101206", name: "Parmar Devanshu Gopalbhai", gender: "M", rollNo: 258, batch: 8 },
-            { sr: 159, enrollmentNo: "24010101283", name: "Tivari Astha Sureshbhai", gender: "F", rollNo: 259, batch: 8 },
-            { sr: 160, enrollmentNo: "24010101191", name: "Pal Kana Odedra", gender: "F", rollNo: 260, batch: 8 },
-            { sr: 161, enrollmentNo: "24010101275", name: "Sorathiya Nabhag Sanjaybhai", gender: "M", rollNo: 261, batch: 9 },
-            { sr: 162, enrollmentNo: "24010101042", name: "Chauhan Vishal Girishbhai", gender: "M", rollNo: 262, batch: 9 },
-            { sr: 163, enrollmentNo: "24010101150", name: "Kuchhadiya Vanita Bhima", gender: "F", rollNo: 263, batch: 9 },
-            { sr: 164, enrollmentNo: "24010101025", name: "Bhimani Naman Chiragbhai", gender: "M", rollNo: 264, batch: 9 },
-            { sr: 165, enrollmentNo: "24010101064", name: "Diyora Miraj Bhaveshbhai", gender: "M", rollNo: 265, batch: 9 },
-            { sr: 166, enrollmentNo: "24010101071", name: "Gajera Rakshit Ketanbhai", gender: "M", rollNo: 266, batch: 9 },
-            { sr: 167, enrollmentNo: "24010101205", name: "Parmar Darpan Jitendra", gender: "M", rollNo: 267, batch: 9 },
-            { sr: 168, enrollmentNo: "24010101285", name: "Trivedi Manan Vijaykumar", gender: "M", rollNo: 268, batch: 9 },
-            { sr: 169, enrollmentNo: "24010101055", name: "Dave Maharshi Kirtikumar", gender: "M", rollNo: 269, batch: 9 },
-            { sr: 170, enrollmentNo: "24010101148", name: "Param Rameshbhai Kotadiya", gender: "M", rollNo: 270, batch: 9 },
-            { sr: 171, enrollmentNo: "24010101213", name: "Patel Archi Pradipbhai", gender: "F", rollNo: 271, batch: 9 },
-            { sr: 172, enrollmentNo: "24010101250", name: "Saradhara Yug Vrajbhushanbhai", gender: "M", rollNo: 272, batch: 9 },
-            { sr: 173, enrollmentNo: "24010101193", name: "Padhariya Ruturajsinh Sureshbhai", gender: "M", rollNo: 273, batch: 9 },
-            { sr: 174, enrollmentNo: "24010101300", name: "Vegad Jenil Ashokbhai", gender: "M", rollNo: 274, batch: 9 },
-            { sr: 175, enrollmentNo: "24010101212", name: "Patani Kismatbanu Shahidbhai", gender: "F", rollNo: 275, batch: 9 },
-            { sr: 176, enrollmentNo: "24010101254", name: "Savaliya Jinesh Kantilal", gender: "M", rollNo: 276, batch: 9 },
-            { sr: 177, enrollmentNo: "24010101277", name: "Tank Darshan Chetanbhai", gender: "M", rollNo: 277, batch: 9 },
-            { sr: 178, enrollmentNo: "24010101081", name: "Ghodasara Dev Ketanbhai", gender: "M", rollNo: 278, batch: 9 },
-            { sr: 179, enrollmentNo: "24010101221", name: "Pithadiya Yash Devendrabhai", gender: "M", rollNo: 279, batch: 9 },
-            { sr: 180, enrollmentNo: "24010101088", name: "Gohel Jenil Amitkumar", gender: "M", rollNo: 280, batch: 9 }
-        ];
-        const studentListCSE3B = [
-            { sr: 1, enrollmentNo: "24010101110", name: "Javiya Nirali Ramjibhai", gender: "F", rollNo: 301, batch: 1, state: "Present" },
-            { sr: 2, enrollmentNo: "24010101149", name: "Kothadia Jal Hiteshkumar", gender: "M", rollNo: 302, batch: 1, state: "Present" },
-            { sr: 3, enrollmentNo: "24010101204", name: "Parmar Bhavik Arjanbhai", gender: "M", rollNo: 303, batch: 1, state: "Present" },
-            { sr: 4, enrollmentNo: "24010101234", name: "Ramani Manav Satishbhai", gender: "M", rollNo: 304, batch: 1, state: "Present" },
-            { sr: 5, enrollmentNo: "24010101240", name: "Rathod Paras Ravibhai", gender: "M", rollNo: 305, batch: 1, state: "Present" },
-            { sr: 6, enrollmentNo: "24010101041", name: "Chauhan Smit Hasmukhbhai", gender: "M", rollNo: 306, batch: 1, state: "Present" },
-            { sr: 7, enrollmentNo: "24010101159", name: "Lunagariya Tirth Jayeshbhai", gender: "M", rollNo: 307, batch: 1, state: "Present" },
-            { sr: 8, enrollmentNo: "24010101023", name: "Bhatti Jiya Pankajbhai", gender: "F", rollNo: 308, batch: 1, state: "Present" },
-            { sr: 9, enrollmentNo: "24010101060", name: "Dhaduk Vandan Dipakbhai", gender: "M", rollNo: 309, batch: 1, state: "Present" },
-            { sr: 10, enrollmentNo: "24010101145", name: "Khorajiya Mahir Mustufa", gender: "M", rollNo: 310, batch: 1, state: "Present" },
-            { sr: 11, enrollmentNo: "24010101049", name: "Dangar Naimish Hasmukhbhai", gender: "M", rollNo: 311, batch: 1, state: "Present" },
-            { sr: 12, enrollmentNo: "24010101276", name: "Sureja Vrunda Sumitbhai", gender: "F", rollNo: 312, batch: 1, state: "Present" },
-            { sr: 13, enrollmentNo: "24010101164", name: "Manek Malay Rishibhai", gender: "M", rollNo: 313, batch: 1, state: "Present" },
-            { sr: 14, enrollmentNo: "24010101231", name: "Raiyani Vishva Nileshbhai", gender: "F", rollNo: 314, batch: 1, state: "Present" },
-            { sr: 15, enrollmentNo: "24010101249", name: "Santoki Sakshiben Devendrabhai", gender: "F", rollNo: 315, batch: 1, state: "Present" },
-            { sr: 16, enrollmentNo: "24010101270", name: "Solanki Naimisha Ganeshbhai", gender: "F", rollNo: 316, batch: 1, state: "Present" },
-            { sr: 17, enrollmentNo: "24010101278", name: "Taraviya Krutagn Dilipkumar", gender: "M", rollNo: 317, batch: 1, state: "Present" },
-            { sr: 18, enrollmentNo: "24010101022", name: "Bhatti Hardvi Rajendrabhai", gender: "F", rollNo: 318, batch: 1, state: "Present" },
-            { sr: 19, enrollmentNo: "24010101067", name: "Dobariya Rutvi Rasikbhai", gender: "F", rollNo: 319, batch: 1, state: "Present" },
-            { sr: 20, enrollmentNo: "24010101087", name: "Gohel Darshan Kishorbhai", gender: "M", rollNo: 320, batch: 1, state: "Present" },
-            { sr: 21, enrollmentNo: "24010101264", name: "Siddhpura Vrinda Nileshbhai", gender: "F", rollNo: 321, batch: 2, state: "Present" },
-            { sr: 22, enrollmentNo: "24010101273", name: "Somaiya Nihal Dipak", gender: "M", rollNo: 322, batch: 2, state: "Present" },
-            { sr: 23, enrollmentNo: "24010101293", name: "Vala Harsiddhiba Jayvirsinh", gender: "F", rollNo: 323, batch: 2, state: "Present" },
-            { sr: 24, enrollmentNo: "24010101237", name: "Rankja Khushi Satishbhai", gender: "F", rollNo: 324, batch: 2, state: "Present" },
-            { sr: 25, enrollmentNo: "24010101262", name: "Shingala Jina Dilipbhai", gender: "F", rollNo: 325, batch: 2, state: "Present" },
-            { sr: 26, enrollmentNo: "24010101261", name: "Shingala Dharmik Dharmeshbhai", gender: "M", rollNo: 326, batch: 2, state: "Present" },
-            { sr: 27, enrollmentNo: "24010101210", name: "Parsana Shubham Pareshbhai", gender: "M", rollNo: 327, batch: 2, state: "Present" },
-            { sr: 28, enrollmentNo: "24010101179", name: "Mendpara Krishaben Hasmukhbhai", gender: "F", rollNo: 328, batch: 2, state: "Present" },
-            { sr: 29, enrollmentNo: "24010101014", name: "Barevadiya Devarsh Harikrushnabhai", gender: "M", rollNo: 329, batch: 2, state: "Present" },
-            { sr: 30, enrollmentNo: "24010101093", name: "Gopani Mitsu Bharatbhai", gender: "M", rollNo: 330, batch: 2, state: "Present" },
-            { sr: 31, enrollmentNo: "24010101109", name: "Jamod Kashika Pravinbhai", gender: "F", rollNo: 331, batch: 2, state: "Present" },
-            { sr: 32, enrollmentNo: "24010101120", name: "Kalola Hill Kishorbhai", gender: "F", rollNo: 332, batch: 2, state: "Present" },
-            { sr: 33, enrollmentNo: "24010101220", name: "Pipaliya Meet Bharatbhai", gender: "M", rollNo: 333, batch: 2, state: "Present" },
-            { sr: 34, enrollmentNo: "24010101243", name: "Sadhu Kuldeep Harshadkumar", gender: "M", rollNo: 334, batch: 2, state: "Present" },
-            { sr: 35, enrollmentNo: "24010101063", name: "Dhandha Aayushi Sanatbhai", gender: "F", rollNo: 335, batch: 2, state: "Present" },
-            { sr: 36, enrollmentNo: "24010101105", name: "Jadeja Riddhiba Jayendrasinh", gender: "F", rollNo: 336, batch: 2, state: "Present" },
-            { sr: 37, enrollmentNo: "24010101128", name: "Kanjariya Radhika Mukeshbhai", gender: "F", rollNo: 337, batch: 2, state: "Present" },
-            { sr: 38, enrollmentNo: "24010101114", name: "Joshi Vivek Bhaveshbhai", gender: "M", rollNo: 338, batch: 2, state: "Present" },
-            { sr: 39, enrollmentNo: "24010101312", name: "Dashadiya Yash Kishorbhai", gender: "M", rollNo: 339, batch: 2, state: "Present" },
-            { sr: 40, enrollmentNo: "24010101130", name: "Kanzariya Krunal Pravinbhai", gender: "M", rollNo: 340, batch: 2, state: "Present" },
-            { sr: 41, enrollmentNo: "24010101111", name: "Jodhani Dhruvbhai Rajeshkumar", gender: "M", rollNo: 341, batch: 3, state: "Present" },
-            { sr: 42, enrollmentNo: "24010101188", name: "Shivang Nandani", gender: "M", rollNo: 342, batch: 3, state: "Present" },
-            { sr: 43, enrollmentNo: "24010101236", name: "Rangani Arpit Dilipbhai", gender: "M", rollNo: 343, batch: 3, state: "Present" },
-            { sr: 44, enrollmentNo: "24010101082", name: "Ghodasara Yashvi Dhirajlal", gender: "F", rollNo: 344, batch: 3, state: "Present" },
-            { sr: 45, enrollmentNo: "24010101233", name: "Rakhasiya Nikhil Hasmukhbhai", gender: "M", rollNo: 345, batch: 3, state: "Present" },
-            { sr: 46, enrollmentNo: "24010101062", name: "Dhamsaniya Princyben Ashokbhai", gender: "F", rollNo: 346, batch: 3, state: "Present" },
-            { sr: 47, enrollmentNo: "24010101073", name: "Tirth Gamara", gender: "M", rollNo: 347, batch: 3, state: "Present" },
-            { sr: 48, enrollmentNo: "24010101216", name: "Mahek Patel", gender: "F", rollNo: 348, batch: 3, state: "Present" },
-            { sr: 49, enrollmentNo: "24010101136", name: "Kasundra Prakruti Sanjaybhai", gender: "F", rollNo: 349, batch: 3, state: "Present" },
-            { sr: 50, enrollmentNo: "24010101115", name: "Kacha Param Sanjay", gender: "M", rollNo: 350, batch: 3, state: "Present" },
-            { sr: 51, enrollmentNo: "24010101274", name: "Sorathiya Mann Ashvinbhai", gender: "M", rollNo: 351, batch: 3, state: "Present" },
-            { sr: 52, enrollmentNo: "24010101295", name: "Vansajaliya Ankit Hemantbhai", gender: "M", rollNo: 352, batch: 3, state: "Present" },
-            { sr: 53, enrollmentNo: "24010101070", name: "Fultariya om", gender: "M", rollNo: 353, batch: 3, state: "Present" },
-            { sr: 54, enrollmentNo: "24010101167", name: "Manvar Hemil Rakeshbhai", gender: "M", rollNo: 354, batch: 3, state: "Present" },
-            { sr: 55, enrollmentNo: "24010101059", name: "Detroja Ujjwal Narendrabhai", gender: "M", rollNo: 355, batch: 3, state: "Present" },
-            { sr: 56, enrollmentNo: "24010101100", name: "Hinsu Vraj Devjibhai", gender: "M", rollNo: 356, batch: 3, state: "Present" },
-            { sr: 57, enrollmentNo: "24010101294", name: "Vala Prashantkumar Maheshbhai", gender: "M", rollNo: 357, batch: 3, state: "Present" },
-            { sr: 58, enrollmentNo: "24010101104", name: "Jadeja Manvendrasinh Jaydeepsinh", gender: "M", rollNo: 358, batch: 3, state: "Present" },
-            { sr: 59, enrollmentNo: "24010101171", name: "Meghani Rishita Narendrabhai", gender: "F", rollNo: 359, batch: 3, state: "Present" },
-            { sr: 60, enrollmentNo: "24010101102", name: "Hirani Tulsiben Rohitbhai", gender: "F", rollNo: 360, batch: 3, state: "Present" },
-            { sr: 61, enrollmentNo: "24010101161", name: "Makwana Shraddha Shaileshbhai", gender: "F", rollNo: 361, batch: 4, state: "Present" },
-            { sr: 62, enrollmentNo: "24010101019", name: "Bhalala Het Lalitbhai", gender: "M", rollNo: 362, batch: 4, state: "Present" },
-            { sr: 63, enrollmentNo: "24010101047", name: "Chotaliya Jenish Ashokbhai", gender: "M", rollNo: 363, batch: 4, state: "Present" },
-            { sr: 64, enrollmentNo: "24010101058", name: "Detroja Sharadkumar Dilipbhai", gender: "M", rollNo: 364, batch: 4, state: "Present" },
-            { sr: 65, enrollmentNo: "24010101133", name: "Kardani Prince Vipulbhai", gender: "M", rollNo: 365, batch: 4, state: "Present" },
-            { sr: 66, enrollmentNo: "24010101286", name: "Ughreja Dax Ashokbhai", gender: "M", rollNo: 366, batch: 4, state: "Present" },
-            { sr: 67, enrollmentNo: "24010101141", name: "Khambhala Tarkesh Vallabhbhai", gender: "M", rollNo: 367, batch: 4, state: "Present" },
-            { sr: 68, enrollmentNo: "24010101268", name: "Sodha Kashwiniba Lakhansinh", gender: "F", rollNo: 368, batch: 4, state: "Present" },
-            { sr: 69, enrollmentNo: "24010101289", name: "Vachhani Janvi Avinashbhai", gender: "F", rollNo: 369, batch: 4, state: "Present" },
-            { sr: 70, enrollmentNo: "24010101052", name: "Dave Hetvi Gopalbhai", gender: "F", rollNo: 370, batch: 4, state: "Present" },
-            { sr: 71, enrollmentNo: "24010101194", name: "Padia Harsh Jitendrabhai", gender: "M", rollNo: 371, batch: 4, state: "Present" },
-            { sr: 72, enrollmentNo: "24010101287", name: "Umretiya Kush Bharatbhai", gender: "M", rollNo: 372, batch: 4, state: "Present" },
-            { sr: 73, enrollmentNo: "24010101144", name: "Khokhar Dhruvi Govind", gender: "F", rollNo: 373, batch: 4, state: "Present" },
-            { sr: 74, enrollmentNo: "24010101203", name: "Parmar Anirudhdha Govindbhai", gender: "M", rollNo: 374, batch: 4, state: "Present" },
-            { sr: 75, enrollmentNo: "24010101024", name: "Bhimani Jeel Yogeshbhai", gender: "M", rollNo: 375, batch: 4, state: "Present" },
-            { sr: 76, enrollmentNo: "24010101217", name: "Patel Neel Sanjaykumar", gender: "M", rollNo: 376, batch: 4, state: "Present" },
-            { sr: 77, enrollmentNo: "24010101175", name: "Mehta Sneha Ashvinbhai", gender: "F", rollNo: 377, batch: 4, state: "Present" },
-            { sr: 78, enrollmentNo: "24010101202", name: "Parekh Bhargav Sanjaybhai", gender: "M", rollNo: 378, batch: 4, state: "Present" },
-            { sr: 79, enrollmentNo: "24010101245", name: "Sakariya Mihir Kishorbhai", gender: "M", rollNo: 379, batch: 4, state: "Present" },
-            { sr: 80, enrollmentNo: "24010101092", name: "Gondaliya Shrijal Jayeshkumar", gender: "F", rollNo: 380, batch: 4, state: "Present" },
-            { sr: 81, enrollmentNo: "24010101160", name: "Makvana Rutvik Kalpeshbhai", gender: "M", rollNo: 381, batch: 5, state: "Present" },
-            { sr: 82, enrollmentNo: "24010101068", name: "Dodiya Riya Darshanbhai", gender: "F", rollNo: 382, batch: 5, state: "Present" },
-            { sr: 83, enrollmentNo: "24010101156", name: "Limbasiya Deep Pareshbhai", gender: "M", rollNo: 383, batch: 5, state: "Present" },
-            { sr: 84, enrollmentNo: "24010101207", name: "Parmar Dhruvi Nareshbhai", gender: "F", rollNo: 384, batch: 5, state: "Present" },
-            { sr: 85, enrollmentNo: "24010101281", name: "Vishva Thesiya", gender: "F", rollNo: 385, batch: 5, state: "Present" },
-            { sr: 86, enrollmentNo: "24010101051", name: "Dave Dhruv Yogeshkumar", gender: "M", rollNo: 386, batch: 5, state: "Present" },
-            { sr: 87, enrollmentNo: "24010101154", name: "Lakkad Devisbhai Arvindbhai", gender: "M", rollNo: 387, batch: 5, state: "Present" },
-            { sr: 88, enrollmentNo: "24010101048", name: "Dalsaniya Yashvi Jayeshkumar", gender: "F", rollNo: 388, batch: 5, state: "Present" },
-            { sr: 89, enrollmentNo: "24010101029", name: "Bhuva Shivam Ashwinbhai", gender: "M", rollNo: 389, batch: 5, state: "Present" },
-            { sr: 90, enrollmentNo: "24010101162", name: "Malaviya Mitul Mukeshbhai", gender: "M", rollNo: 390, batch: 5, state: "Present" },
-            { sr: 91, enrollmentNo: "24010101269", name: "Solanki Aryan Valjibhai", gender: "M", rollNo: 391, batch: 5, state: "Present" },
-            { sr: 92, enrollmentNo: "24010101305", name: "Vora Rudra Girishbhai", gender: "M", rollNo: 392, batch: 5, state: "Present" },
-            { sr: 93, enrollmentNo: "24010101272", name: "Solanki Vishal Rameshbhai", gender: "M", rollNo: 393, batch: 5, state: "Present" },
-            { sr: 94, enrollmentNo: "24010101306", name: "Vyas Jinal Amitbhai", gender: "F", rollNo: 394, batch: 5, state: "Present" },
-            { sr: 95, enrollmentNo: "24010101256", name: "Savaliya Tirth Navnitbhai", gender: "M", rollNo: 395, batch: 5, state: "Present" },
-            { sr: 96, enrollmentNo: "24010101297", name: "Vasani Daksh Nikhilkumar", gender: "M", rollNo: 396, batch: 5, state: "Present" },
-            { sr: 97, enrollmentNo: "24010101129", name: "Kantesaria Pari Romalbhai", gender: "F", rollNo: 397, batch: 5, state: "Present" },
-            { sr: 98, enrollmentNo: "24010101012", name: "Baraiya Yash Nileshbhai", gender: "M", rollNo: 398, batch: 5, state: "Present" },
-            { sr: 99, enrollmentNo: "24010101094", name: "Goswami Rudra Nileshgar", gender: "M", rollNo: 399, batch: 5, state: "Present" },
-            { sr: 100, enrollmentNo: "24010101152", name: "Ladani Mann Snehalbhai", gender: "M", rollNo: 400, batch: 5, state: "Present" },
-            { sr: 101, enrollmentNo: "24010101209", name: "Parmar Uday Jagdishbhai", gender: "M", rollNo: 401, batch: 6, state: "Present" },
-            { sr: 102, enrollmentNo: "24010101211", name: "Parsaniya Dhruvkumar Jayendrabhai", gender: "M", rollNo: 402, batch: 6, state: "Present" },
-            { sr: 103, enrollmentNo: "24010101291", name: "Vagh Dhavalbhai Nareshbhai", gender: "M", rollNo: 403, batch: 6, state: "Present" },
-            { sr: 104, enrollmentNo: "24010101083", name: "Ghoniya Vrunda Dilipbhai", gender: "F", rollNo: 404, batch: 6, state: "Present" },
-            { sr: 105, enrollmentNo: "24010101248", name: "Sankhavara Prayag Mansukhlal", gender: "M", rollNo: 405, batch: 6, state: "Present" },
-            { sr: 106, enrollmentNo: "24010101089", name: "Gohel Kuldeep Kishorbhai", gender: "M", rollNo: 406, batch: 6, state: "Present" },
-            { sr: 107, enrollmentNo: "24010101027", name: "Bhoraniya Priya Sureshbhai", gender: "F", rollNo: 407, batch: 6, state: "Present" },
-            { sr: 108, enrollmentNo: "24010101011", name: "Bajadiya Om Bhupatbhai", gender: "M", rollNo: 408, batch: 6, state: "Present" },
-            { sr: 109, enrollmentNo: "24010101079", name: "Ghardeshiya Man Ashokbhai", gender: "M", rollNo: 409, batch: 6, state: "Present" },
-            { sr: 110, enrollmentNo: "24010101096", name: "Harkhani Ronak Prafulbhai", gender: "M", rollNo: 410, batch: 6, state: "Present" },
-            { sr: 111, enrollmentNo: "24010101155", name: "Aryansinh Lalakia", gender: "M", rollNo: 411, batch: 6, state: "Present" },
-            { sr: 112, enrollmentNo: "24010101178", name: "Mendapara Utpal Shaileshbhai", gender: "M", rollNo: 412, batch: 6, state: "Present" },
-            { sr: 113, enrollmentNo: "24010101016", name: "Bechra Diya Jayesh", gender: "F", rollNo: 413, batch: 6, state: "Present" },
-            { sr: 114, enrollmentNo: "24010101170", name: "Mathakiya Navfal Kutbudin", gender: "M", rollNo: 414, batch: 6, state: "Present" },
-            { sr: 115, enrollmentNo: "24010101122", name: "Kamaliya Manaliben Dineshbhai", gender: "F", rollNo: 415, batch: 6, state: "Present" },
-            { sr: 116, enrollmentNo: "24010101292", name: "Vaghera Vaidika Hinaben", gender: "F", rollNo: 416, batch: 6, state: "Present" },
-            { sr: 117, enrollmentNo: "24010101054", name: "Dave Krisha Satyakam", gender: "F", rollNo: 417, batch: 6, state: "Present" },
-            { sr: 118, enrollmentNo: "24010101168", name: "Markana Nisarg Maheshbhai", gender: "M", rollNo: 418, batch: 6, state: "Present" },
-            { sr: 119, enrollmentNo: "24010101010", name: "Bagda Sandipkumar Danabhai", gender: "M", rollNo: 419, batch: 6, state: "Present" },
-            { sr: 120, enrollmentNo: "24010101304", name: "Vora Preet Chetankumar", gender: "M", rollNo: 420, batch: 6, state: "Present" },
-            { sr: 121, enrollmentNo: "24010101061", name: "Dhamsaniya Dhvani Kishorbhai", gender: "F", rollNo: 421, batch: 7, state: "Present" },
-            { sr: 122, enrollmentNo: "24010101185", name: "Mungara Meet Vithalbhai", gender: "M", rollNo: 422, batch: 7, state: "Present" },
-            { sr: 123, enrollmentNo: "24010101098", name: "Hinsu Maitri Dipakbhai", gender: "F", rollNo: 423, batch: 7, state: "Present" },
-            { sr: 124, enrollmentNo: "24010101176", name: "Mehta Vatsal Yogeshkumar", gender: "M", rollNo: 424, batch: 7, state: "Present" },
-            { sr: 125, enrollmentNo: "24010101902", name: "Chadamiya Bhavy Babulal", gender: "M", rollNo: 425, batch: 7, state: "Present" },
-            { sr: 126, enrollmentNo: "24010101015", name: "Bavaliya Tushar Pravinbhai", gender: "M", rollNo: 426, batch: 7, state: "Present" },
-            { sr: 127, enrollmentNo: "24010101147", name: "Kotadia Richa Cheritkumar", gender: "F", rollNo: 427, batch: 7, state: "Present" },
-            { sr: 128, enrollmentNo: "24010101040", name: "Chauhan Krutarth Rajubhai", gender: "M", rollNo: 428, batch: 7, state: "Present" },
-            { sr: 129, enrollmentNo: "24010101259", name: "Sheth Harsh Ketanbhai", gender: "M", rollNo: 429, batch: 7, state: "Present" }
-        ];
-        let tbody = document.getElementById('tbody');
-      function classA(){
-        for (let i = 0; i < studentListCSE3A.length; i++) {
-            tbody.innerHTML += `
-            <tr>
-                <td> ${studentListCSE3A[i].sr} </td>
-                <td> ${studentListCSE3A[i].enrollmentNo} </td>
-                <td> ${studentListCSE3A[i].name} </td>
-                <td> ${studentListCSE3A[i].rollNo} </td>
-                <td> <button onclick="">present</button</td>
-                <td> <button>Absent</button</td>
-                <td> ${studentListCSE3A[i].state} </td>
+        var studentListCSE3A = [/* --- your Class A student array here --- */];
 
-            </tr>`
+        function showClassA() {
+            var tableBody = document.getElementById("tableBody");
+            tableBody.innerHTML = "";
+            for (var i = 0; i < studentListCSE3A.length; i++) {
+                var student = studentListCSE3A[i];
+                var row = document.createElement("tr");
+                row.innerHTML = "<td>" + student.sr + "</td>" +
+                                "<td>" + student.rollNo + "</td>" +
+                                "<td>" + student.name + "</td>" +
+                                "<td>" + student.enrollmentNo + "</td>" +
+                                "<td>" +
+                                    "<button class='action-button absent-button' onclick=\"markAttendance(" + i + ", 'Absent')\">Absent</button>" +
+                                    "<button class='action-button present-button' oncontextmenu=\"markAttendance(" + i + ", 'Present');return false;\" onclick=\"markAttendance(" + i + ", 'Present')\">Present</button>" +
+                                "</td>" +
+                                "<td class='" + (student.state === "Present" ? "present" : "absent") + "'>" + student.state + "</td>";
+                tableBody.appendChild(row);
+            }
         }
-    }
-    function classB(){
-        for (let i = 0; i < studentListCSE3B.length; i++) {
-            tbody.innerHTML += `
-            <tr>
-                <td> ${studentListCSE3B[i].sr} </td>
-                <td> ${studentListCSE3B[i].enrollmentNo} </td>
-                <td> ${studentListCSE3B[i].name} </td>
-                <td> ${studentListCSE3B[i].rollNo} </td>
-                <td> <button onclick="">present</button</td>
-                <td> <button>Absent</button</td>
-                <td> ${studentListCSE3B[i].state} </td>
 
-            </tr>`
+        function markAttendance(index, status) {
+            studentListCSE3A[index].state = status;
+            showClassA();
         }
-    }
 
+        function markAllPresent() {
+            for (var i = 0; i < studentListCSE3A.length; i++) {
+                studentListCSE3A[i].state = "Present";
+            }
+            showClassA();
+        }
+
+        function takeAttendance() {
+            var total = studentListCSE3A.length;
+            var present = 0;
+            var absentRollNos = [];
+            for (var i = 0; i < studentListCSE3A.length; i++) {
+                if (studentListCSE3A[i].state === "Present") {
+                    present++;
+                } else {
+                    absentRollNos.push(studentListCSE3A[i].rollNo);
+                }
+            }
+            var absent = total - present;
+            alert("Total Students: " + total + "\nPresent: " + present + "\nAbsent: " + absent + "\nAbsent Roll Nos: " + (absentRollNos.length ? absentRollNos.join(", ") : "None"));
+        }
+
+        function resetAttendance() {
+            for (var i = 0; i < studentListCSE3A.length; i++) {
+                studentListCSE3A[i].state = "Absent";
+            }
+            showClassA();
+        }
+
+        // Auto-load Class A when page loads
+        window.onload = showClassA;
     </script>
 </body>
-
 </html>

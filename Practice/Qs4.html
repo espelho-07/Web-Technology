@@ -1,0 +1,70 @@
+<!--Find Average Of Marks For Given array of Marks->85,97,44,37,76,60--> 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Declaring marks Array
+        let marks = [85,97,44,37,76,60];
+        let sum = 0;
+        let Average;
+        //For Visiting Each Element In Array
+        for (let index = 0; index < marks.length; index++) {
+            sum = sum + marks[index];     //Doing Sum For Finding Average
+        }
+        Average = sum/marks.length;     //Finding Average
+        console.log(Average);          //Printing Average 
+    </script>
+</body>
+</html>
+
+<!--Apply offer of 10% on Store prices As 250,645,300,900,50-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //Declaring An Array
+        let price = [250,645,300,900,50];
+        let newPrice;
+        //Using For Loop For Visiting Every element
+        for (let index = 0; index < price.length; index++) {
+            let newPrice = price[index] - price[index] * 0.1;   //For Getting The Offer Price
+            console.log("The Offer Price Is::",newPrice);      //Printing The Offer Price In Console
+        }
+    </script>
+</body>
+</html>
+
+<!--Array-> "Bloomberg","Microsoft","Uber","Google","IBM","Netflix"  1-Remove 1st company 2-Remove Uber and Ola 3-Add Amazon at end-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let company = ["Bloomberg","Microsoft","Uber","Google","IBM","Netflix"];
+
+        company.push("Amazon");
+        console.log(company);
+        company.splice(2,1,"Ola");
+        console.log(company);
+        company.shift();
+        console.log(company);
+    </script>
+</body>
+</html>

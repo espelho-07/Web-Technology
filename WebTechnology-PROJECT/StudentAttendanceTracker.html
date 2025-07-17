@@ -1,12 +1,148 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Student Attendance Tracker</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-  </head>
-  <body>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q" crossorigin="anonymous"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Attendance Tracker</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"/>
+  <style>
+    body {
+      background-color: #e0f7fa;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .control-buttons {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .summary-box {
+      background-color: #f1f8e9;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-weight: bold;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #d7ffd9;
+    }
+
+    .absent {
+      color: red;
+      font-weight: bold;
+    }
+
+    .present {
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>Attendance Tracker</h1>
+
+  <div class="control-buttons">
+    <button class="btn btn-primary" onclick="resetAttendance()">Reset</button>
+    <button class="btn btn-success" onclick="markAllPresent()">Mark All Present</button>
+    <button class="btn btn-warning">Take Attendance</button>
+  </div>
+
+  <div class="summary-box">
+    Absent Count: <span id="absentCount">0</span><br />
+    Absent Roll Numbers: <span id="absentRollNo">None</span>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead class="table-dark">
+      <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Action</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+
+  <script>
+    const students = [
+      { rollNo: 261, name: "Chauhan Vishal Girishbhai", state: "Present" },
+      { rollNo: 262, name: "Bhimani Naman", state: "Present" },
+      { rollNo: 263, name: "Diyora Miraj Bhaveshbhai", state: "Present" },
+      { rollNo: 264, name: "Gajera Rakshit Ketanbhai", state: "Present" },
+      { rollNo: 265, name: "Parmar Darpan Jitendra", state: "Present" },
+      { rollNo: 266, name: "Trivedi Manan Vijaykumar", state: "Present" },
+      { rollNo: 267, name: "Dave Maharshi Kirtikumar", state: "Present" },
+      { rollNo: 268, name: "Param Rameshbhai Kotadiya", state: "Present" },
+      { rollNo: 269, name: "Patel Archi Pradipbhai", state: "Present" }
+    ];
+
+    const tbody = document.getElementById('tbody');
+    const absentCountEl = document.getElementById('absentCount');
+    const absentRollNoEl = document.getElementById('absentRollNo');
+
+    function loadTable() {
+      tbody.innerHTML = '';
+      students.forEach((student, i) => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${student.rollNo}</td>
+            <td>${student.name}</td>
+            <td>
+              <button class="btn btn-success btn-sm" onclick="markPresent(${i})">Present</button>
+              <button class="btn btn-danger btn-sm" onclick="markAbsent(${i})">Absent</button>
+            </td>
+            <td id="status-${i}" class="${student.state.toLowerCase()}">${student.state}</td>
+          </tr>
+        `;
+      });
+      updateSummary();
+    }
+
+    function markPresent(index) {
+      students[index].state = "Present";
+      document.getElementById(status-${index}).innerText = "Present";
+      document.getElementById(status-${index}).className = "present";
+      updateSummary();
+    }
+
+    function markAbsent(index) {
+      students[index].state = "Absent";
+      document.getElementById(status-${index}).innerText = "Absent";
+      document.getElementById(status-${index}).className = "absent";
+      updateSummary();
+    }
+
+    function updateSummary() {
+      const absentees = students.filter(s => s.state === "Absent");
+      absentCountEl.innerText = absentees.length;
+      absentRollNoEl.innerText = absentees.length > 0 ? absentees.map(s => s.rollNo).join(', ') : "None";
+    }
+
+    function markAllPresent() {
+      students.forEach((s, i) => {
+        s.state = "Present";
+        document.getElementById(status-${i}).innerText = "Present";
+        document.getElementById(status-${i}).className = "present";
+      });
+      updateSummary();
+    }
+
+    function resetAttendance() {
+      students.forEach(s => s.state = "Present");
+      loadTable();
+    }
+
+    loadTable();
+  </script>
+</body>
 </html>

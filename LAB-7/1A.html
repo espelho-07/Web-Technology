@@ -1,0 +1,22 @@
+<!--WAP to demonstrate callbacks in JavaScript.-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>callbacks</title>
+</head>
+<body>
+    <script>
+        function Sum(a,b,mycallBack){
+            res=a+b;
+            mycallBack(res);
+        }
+        function printSum(ans){
+            document.writeln(ans);
+        }
+        Sum(10,5,printSum)
+    </script>
+</body>
+</html>

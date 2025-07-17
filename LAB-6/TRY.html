@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Keyboard Event Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        h1 {
+            color: black;
+        }
+        #output {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Keyboard Event Handler</h1>
+    <p>Press any key to see its key code. Press a vowel (a, e, i, o, u) to get a special message!</p>
+    <p>Release any key to change the background to blue.</p>
+    <div id="output">Key code will appear here</div>
+
+    <script>
+        // Get the output div to show messages
+        let outputDiv = document.getElementById("output");
+
+        // Function to check if a key is a vowel
+        function isVowel(key) {
+            let vowels = ["a", "e", "i", "o", "u"];
+            return vowels.includes(key.toLowerCase());
+        }
+
+        // Event listener for key press
+        document.addEventListener("keydown", function(event) {
+            // Show the key code
+            outputDiv.innerHTML = "Key pressed: " + event.key + " (Key code: " + event.keyCode + ")";
+
+            // Check if the pressed key is a vowel
+            if (isVowel(event.key)) {
+                alert("Wow! You pressed a vowel: " + event.key);
+            }
+        });
+
+        // Event listener for key release
+        document.addEventListener("keyup", function(event) {
+            // Change background to blue when key is released
+            document.body.style.backgroundColor = "lightblue";
+            outputDiv.innerHTML = "Key released! Background changed to blue.";
+        });
+    </script>
+</body>
+</html>
