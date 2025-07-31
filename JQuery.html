@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <h1 id="heading">JQuery</h1>
+    <button id="hide">Click Me To Hide</button>
+
+    <p class="head">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, ipsam beatae minus iure
+        praesentium similique! Debitis impedit facilis consequuntur, sit deleniti voluptates, perferendis minima aliquam
+        non distinctio amet, ipsa quaerat.</p>
+    <button class="hide">Click Me To Hide</button>
+
+    <p class="head1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, ipsam beatae minus iure
+        praesentium similique! Debitis impedit facilis consequuntur, sit deleniti voluptates, perferendis minima aliquam
+        non distinctio amet, ipsa quaerat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam alias
+        porro ad saepe autem harum perferendis culpa temporibus debitis ab excepturi suscipit, odit minus qui quidem
+        consequatur numquam dolores totam! Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda eaque
+        voluptates iusto sequi nemo ullam odio nisi quia reiciendis, nam modi inventore, corrupti nesciunt, vitae
+        quaerat labore impedit autem dolorem.</p>
+    <button class="hideen">Click Me To Toggle</button>
+
+    <p class="head2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti, ipsam beatae minus iure
+        praesentium similique! Debitis impedit facilis consequuntur, sit deleniti voluptates, perferendis minima aliquam
+        non distinctio amet, ipsa quaerat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam alias
+        porro ad saepe autem harum perferendis culpa temporibus debitis ab excepturi suscipit, odit minus qui quidem
+        consequatur numquam dolores totam! Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda eaque
+        voluptates iusto sequi nemo ullam odio nisi quia reiciendis, nam modi inventore, corrupti nesciunt, vitae
+        quaerat labore impedit autem dolorem.</p>
+    <button class="hideeen">Click Me To Toggle Without Using It</button>
+
+    <br>
+    <br>
+    <br>
+
+    <label>Input-1</label>
+    <input type="number" class="input0">
+
+    <label>Input-2</label>
+    <input type="number" class="input0">
+
+    <label>Input-3</label>
+    <input type="number" class="input0">
+
+    <br>
+    <br>
+    <br>
+
+    <p class="head3">-------"HIDE BY JUST CLICKING---------------Lorem ipsum dolor sit amet consectetur adipisicing
+        elit. Deleniti, ipsam beatae minus iure
+        praesentium similique! Debitis impedit facilis consequuntur, sit deleniti voluptates, perferendis minima aliquam
+        non distinctio amet, ipsa quaerat. Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam alias
+        porro ad saepe autem harum perferendis culpa temporibus debitis ab excepturi suscipit, odit minus qui quidem
+        consequatur numquam dolores totam! Lorem ipsum dolor sit amet consectetur adipisicing elit. Assumenda eaque
+        voluptates iusto sequi nemo ullam odio nisi quia reiciendis, nam modi inventore, corrupti nesciunt, vitae
+        quaerat labore impedit autem dolorem.</p>
+
+    <br>
+    <br>
+    <br>
+
+    <label>Input-1</label>
+    <input type="number" class="input1">
+
+    <label>Input-2</label>
+    <input type="number" class="input1">
+
+    <label>Input-3</label>
+    <input type="number" class="input1">
+
+    <button class="button">Click Me To Change BG colour</button>
+
+    <br>
+    <br>
+    <br>
+
+    <label>Input-1</label>
+    <input type="number" class="input">
+
+    <label>Input-2</label>
+    <input type="number" class="input">
+
+    <label>Input-3</label>
+    <input type="number" class="input">
+
+    <script>
+        //using id hide
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                $("#heading").hide();
+            });
+        });
+
+        //using class hide
+        $(document).ready(function () {
+            $(".hide").click(function () {
+                $(".head").hide();
+            });
+        });
+
+        //using toggle
+        $(document).ready(function () {
+            $(".hideen").click(function () {
+                $(".head1").toggle();
+            });
+        });
+
+        //doing toggle without using it
+        $(document).ready(function () {
+            $(".hideeen").click(function () {
+                if ($(".head2").is(":visible")) {
+                    $(".head2").hide();
+                }
+                else {
+                    $(".head2").show();
+                }
+            });
+        });
+
+        //change bg colour of all input tags when clicked
+        $(document).ready(function () {
+            $(".input0").click(function () {
+                $(this).css({ backgroundColor: 'lightblue' });
+            });
+        });
+
+        //change bg colour of all input tags when button is clicked
+        $(document).ready(function () {
+            $('.button').click(function () {
+                $('.input1').css({ backgroundColor: 'black' });
+            });
+        });
+
+
+        //to hide an element which was clicked
+        $(document).ready(function () {
+            $(".head3").click(function () {
+                $(this).hide();
+            });
+        });
+
+        // when an input is focused then red and when not back to white
+        $(document).ready(function () {
+            $(".input").focus(function () {
+                $(this).css({ backgroundColor: 'red' });
+            })
+            $(".input").blur(function () {
+                $(this).css({ backgroundColor: 'white' });
+            });
+        });
+
+        //set bg of all elements to red when mouse enter paragraph
+        $(document).ready(function () {
+            $('p').hover(function () {
+                $('*').css({ backgroundColor: 'red' });
+            })
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+        integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <h1 id="fade">JQUERY Fade </h1>
+    <P class="data">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam ex, suscipit obcaecati doloribus,
+        dolorum
+        consequuntur veritatis saepe eveniet corporis voluptatibus debitis aut excepturi est iste nesciunt praesentium
+        natus, quibusdam ea?</P>
+
+    <ul id="ul">
+        <li>Item 1</li>
+        <li>Item 1</li>
+        <li>Item 1</li>
+        <li>Item 1</li>
+    </ul>
+    <table id="tbl">
+        <th>head</th>
+        <tr>
+            <td>hlo</td>
+        </tr>
+    </table>
+
+    <div id="div1">
+        <div>
+            <h1>SIBLINGS</h1>
+        </div>
+    </div>
+
+    <button id="btn">Click To fade OUT</button>
+    <button id="btn1">Click To fade IN</button>
+    <button id="btn2">Click To fade Toggle</button>
+    <button id="btn3">Click To slide up</button>
+    <button id="btn4">Click To slide down</button>
+    <button id="btn5">Click To slide Toggle</button>
+    <button id="btn6">Click To H1</button>
+    <button id="btn7">Click To DATA</button>
+    <button id="btn8">Click To ul</button>
+    <button id="btn9">Click To tbl</button>
+    <button id="btn10">Click To div</button>
+    <script>
+        //JQuery To Fade Whecn Clicked on it
+        $(document).ready(function () {
+            $("#btn").click(function () {
+                $("#fade").fadeOut(1000);
+            });
+        });
+
+        $(document).ready(function () {
+            $("#btn1").click(function () {
+                $("#fade").fadeIn(1000);
+            });
+        });
+
+        $(document).ready(function () {
+            $("#btn2").click(function () {
+                $("#fade").fadeToggle(1000);
+            });
+        });
+
+        //JQuery T0 Slide Up Down And Toggle
+        $(document).ready(function () {
+            $("#btn3").click(function () {
+                $("#fade").slideUp(1000);
+            });
+        });
+        $(document).ready(function () {
+            $("#btn4").click(function () {
+                $("#fade").slideDown(1000);
+            });
+        });
+        $(document).ready(function () {
+            $("#btn5").click(function () {
+                $("#fade").slideToggle(1000);
+            });
+        });
+        //When Click on button set content of h1 to hello world
+        $(document).ready(function () {
+            $("#btn6").click(function () {
+                $("#fade").text("Hello World");
+            });
+        });
+        //JQUERY PROGRAM TO APPEND NEW LIST ITEM WITH HELLO WORLD  TO EXISTING UNOREDERD LIST WHEN CLICK ON BUTTON
+        $(document).ready(function () {
+            $("#btn8").click(function () {
+                $("#ul").append("<li>Hello World</li>");
+            });
+        });
+        //jquery for new row in table
+        $(document).ready(function () {
+            $("#btn9").click(function () {
+                $("#tbl").append("<tr><td>hello world</td></tr >");
+            });
+        });
+        //siblings
+        $(document).ready(function () {
+            $("#btn10").click(function () {
+                $("#div1").css({color : 'red' }).siblings();
+            });
+        });
+    </script>
+</body>
+
+</html>

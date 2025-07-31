@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty List</title>
+</head>
+<body>
+    <button onclick="loadFaculty()">Load Faculty</button>
+    <div id="Div"></div>
+
+    <script>
+        function loadFaculty() {
+            const xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                const data = JSON.parse(this.responseText);
+                console.log(data);
+
+             
+                let tableHTML = "<table border='1'><tr><th>Faculty Name</th></tr>";
+                data.forEach(s => {
+                    tableHTML += `<tr><td>${s.faculty_name}</td></tr>`;
+                });
+                tableHTML += "</table>";
+            };
+
+            xhttp.open("GET", "https://67c7d947c19eb8753e7affd4.mockapi.io/Faculty", true);
+            xhttp.send();
+
+                document.getElementById("Div").innerHTML = tableHTML;
+        }
+    </script>
+</body>
+</html>
