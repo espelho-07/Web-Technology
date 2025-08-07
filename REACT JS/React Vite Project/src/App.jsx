@@ -12,7 +12,7 @@ function App() {
     <br></br>
     <br></br>
     <center>
-    <table>
+    <table border={2} cellSpacing={10} cellPadding={10} >
       <center>
         <tr>
           <th>Feature</th>
