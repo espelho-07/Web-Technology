@@ -50,7 +50,8 @@ function Header() {
 <br></br>
 <br></br>
 <div class="row">
-  <div class="card col-6" style={{width: "18rem"}}>
+  <center>
+  <div class="card col-3" style={{width: "18rem"}}>
   <img src={balasir} class="card-img-top" alt="..."/>
   <div class="card-body">
     <center><h5 class="card-title">Arjun Bala</h5></center>
@@ -60,7 +61,7 @@ function Header() {
     <center><a href="#" class="btn btn-primary">Want To Know More</a></center>
   </div>
   </div>
-  <div class="card col-6" style={{width: "18rem"}}>
+  <div class="card col" style={{width: "18rem"}}>
   <img src={balasir} class="card-img-top" alt="..."/>
   <div class="card-body">
     <center><h5 class="card-title">Arjun Bala</h5></center>
@@ -70,6 +71,7 @@ function Header() {
     <center><a href="#" class="btn btn-primary">Want To Know More</a></center>
 </div>
 </div>
+</center>
 </div>
 
   </>);
