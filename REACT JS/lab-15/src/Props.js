@@ -15,6 +15,11 @@ function Propstrial(props) {
                 <button onClick={func}>
                     click here for suprise
                 </button>
+                <button onClick={() => {
+                    alert("Its Function Called By Arrrow Function u did it")
+                }}>
+                    click
+                </button>
                 {props.isdisplay && <h1>Yaa Its True</h1>}
             </div>
         </>
