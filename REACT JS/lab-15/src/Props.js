@@ -11,6 +11,7 @@ function Propstrial(props) {
                     Trying Props
                 </h1>
                 <h2>Say Hello To {props.msg}</h2>
+                <h2>lucky noo never {props.name}</h2>
                 <button onClick={func}>
                     click here for suprise
                 </button>

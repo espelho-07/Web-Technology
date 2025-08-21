@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <div>
-        <Propstrial msg="Java Script are u sure?" isdisplay={true}></Propstrial>
+        <Propstrial msg="Java Script are u sure?" isdisplay={true} name="Darshan University"></Propstrial>
       </div>
     </>
   );
