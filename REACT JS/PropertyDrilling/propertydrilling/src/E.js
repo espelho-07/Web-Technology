@@ -1,4 +1,7 @@
-function E(name , setName) {
+import React from "react";
+import F from './F.js';
+
+function E({name , setName}) {
     return (
         <>
         <h1>Name is::{name} </h1>
